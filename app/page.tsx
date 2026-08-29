@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SkillsSection from "@/components/SkillsSection";
@@ -10,6 +10,7 @@ import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import SpiderWebCanvas from "@/components/SpiderWebCanvas";
+import { CornerSpiderWeb, SpiderSenseHud } from "@/components/SpiderDecorations";
 import { THEMES } from "@/data/portfolioData";
 import { sound } from "@/lib/soundEffects";
 
@@ -36,17 +37,24 @@ export default function Home() {
         backgroundColor: "#030712",
       }}
     >
-      {/* Interactive Spider-Web Particle Canvas */}
+      {/* Interactive Spider-Web Click & Constellation Canvas */}
       <SpiderWebCanvas
         accentColor={activeTheme.accent}
         secondaryColor={activeTheme.secondary}
       />
+
+      {/* Corner Spider Web Graphic Accents */}
+      <CornerSpiderWeb position="top-left" color={activeTheme.accent} />
+      <CornerSpiderWeb position="top-right" color={activeTheme.secondary} />
 
       {/* Spider-Verse Matrix Grid Pattern Overlay */}
       <div
         className="fixed inset-0 spider-grid-pattern pointer-events-none opacity-40 z-0"
         aria-hidden="true"
       />
+
+      {/* Floating Spider-Sense Web Shooter HUD */}
+      <SpiderSenseHud />
 
       {/* Header Navigation */}
       <Navbar
