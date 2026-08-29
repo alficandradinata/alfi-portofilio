@@ -13,17 +13,40 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alfi Candra | Spider-Verse Portfolio",
-  description: "Portofolio premium Alfi Candra Dinata dengan tema visual Spider-Man yang modern dan elegan.",
+  title: "Alfi Candra Dinata | Software Engineer & Builder",
+  description: "Portofolio interaktif Alfi Candra Dinata — Full-Stack Web Architect, Mobile Developer, dan Data Explorer bertema Spider-Verse.",
+  keywords: [
+    "Alfi Candra Dinata",
+    "Alfi Candra",
+    "Software Engineer",
+    "Web Developer Medan",
+    "Web Developer Pekanbaru",
+    "Next.js",
+    "React Native",
+    "Python",
+    "Portfolio",
+  ],
+  authors: [{ name: "Alfi Candra Dinata" }],
+  openGraph: {
+    title: "Alfi Candra Dinata | Software Engineer & Builder",
+    description: "Portofolio interaktif Alfi Candra Dinata — Web, Mobile, & Data Solutions.",
+    type: "website",
+  },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="id"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col spider-body">{children}</body>
+      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans selection:bg-rose-500 selection:text-white">
+        {children}
+      </body>
     </html>
   );
 }
