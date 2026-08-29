@@ -64,7 +64,7 @@ export const PERSONAL_INFO = {
   socials: {
     github: "https://github.com/alficandradinata",
     linkedin: "https://linkedin.com/in/alficandradinata",
-    instagram: "https://instagram.com/https://www.instagram.com/alficandra_20?igsi=MWV5bzFoMDd5a2Q3ag%3D%3D&utm_source=qralfi_candra",
+    instagram: "https://instagram.com/https://www.instagram.com/alficandra_20",
     whatsapp: "https://wa.me/6282321376752?text=Halo%20Alfi,%20saya%20tertarik%20bekerja%20sama%20denganmu!",
     email: "mailto:alfichandra2003@gmail.com",
   },
