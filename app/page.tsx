@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <div className="site-shell flex flex-col flex-1 items-center justify-center">
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Alfi Candra home">
           <span className="brand-mark">ac<span>/</span></span>
@@ -14,12 +14,12 @@ export default function Home() {
         <a className="status-pill" href="#contact"><span /> Available for work</a>
       </header>
 
-      <main id="top">
+      <main id="top" className="spider-main">
         <section className="hero section-wrap">
           <div className="hero-copy">
             <p className="eyebrow"><span className="eyebrow-line" /> Software engineer / builder</p>
-            <h1>I make ideas<br /><em>work.</em></h1>
-            <p className="hero-intro">Hi, I&apos;m Alfi. I design and build reliable digital products, from the first line of code to the last pixel.</p>
+            <h1>I build dream<br /><em>digital worlds.</em></h1>
+            <p className="hero-intro">Hi, I&apos;m Alfi.saya membuat portofolio untuk belajar lebih baik kedepan nya</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#work">See my work <span>-&gt;</span></a>
               <a className="text-link" href="#contact">Let&apos;s talk <span>-&gt;</span></a>
@@ -57,7 +57,7 @@ export default function Home() {
 
         <section className="contact section-wrap" id="contact"><div><p className="eyebrow"><span className="eyebrow-line" /> Have a good one?</p><h2>Let&apos;s make<br /><em>something.</em></h2></div><div className="contact-side"><p>Have a project in mind, a problem to solve, or just want to say hello?</p><a className="contact-email" href="mailto:hello@alficandra.dev">hello@alficandra.dev <span>-&gt;</span></a></div></section>
       </main>
-      <footer className="site-footer"><span>(c) 2026 Alfi Candra Dinata</span><span>Built with intention / Medan, ID</span><a href="#top">Back to top ^</a></footer>
+      <footer className="site-footer"><span>(c) 2026 Alfi Candra Dinata</span><span>Built with intention / Pekanbaru, ID</span><a href="#top">kembali ke atas ^</a></footer>
     </div>
   );
 }

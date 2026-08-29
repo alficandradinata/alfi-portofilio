@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "alfi candra dinata | Software Engineer",
-  description: "Portofolio Alfi candra dinata, software engineer dan builder produk digital.",
+  title: "Alfi Candra | Spider-Verse Portfolio",
+  description: "Portofolio premium Alfi Candra dengan tema visual Spider-Man yang modern dan elegan.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="id"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col spider-body">{children}</body>
     </html>
   );
 }
