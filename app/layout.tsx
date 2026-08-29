@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Alfi Candra | Spider-Verse Portfolio",
-  description: "Portofolio premium Alfi Candra dengan tema visual Spider-Man yang modern dan elegan.",
+  description: "Portofolio premium Alfi Candra Dinata dengan tema visual Spider-Man yang modern dan elegan.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

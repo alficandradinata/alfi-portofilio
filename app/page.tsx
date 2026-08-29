@@ -17,7 +17,7 @@ export default function Home() {
       <main id="top" className="spider-main">
         <section className="hero section-wrap">
           <div className="hero-copy">
-            <p className="eyebrow"><span className="eyebrow-line" /> Software engineer / builder</p>
+            <p className="eyebrow"><span className="eyebrow-line" /> Software engineer / builder/tukang sapu</p>
             <h1>I build dream<br /><em>digital worlds.</em></h1>
             <p className="hero-intro">Hi, I&apos;m Alfi.saya membuat portofolio untuk belajar lebih baik kedepan nya</p>
             <div className="hero-actions">
