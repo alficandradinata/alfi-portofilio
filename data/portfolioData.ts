@@ -50,8 +50,8 @@ export const PERSONAL_INFO = {
   subRole: "Web Architect • Mobile Dev • Python & Data Explorer",
   location: "Pekanbaru & Medan, Indonesia",
   timezone: "Asia/Jakarta (WIB • UTC+7)",
-  email: "alficandradinata@gmail.com",
-  phone: "+62 822-8888-xxxx",
+  email: "alfichandra2003@gmail.com",
+  phone: "+62 823-2137-6752",
   status: "Available for Work & Collaborations",
   skripsiStatus: "Final Year Student & Software Engineer",
   bio: "Seorang software engineer dan builder yang berfokus menciptakan website modern berkinerja tinggi, aplikasi mobile responsif, serta sistem berbasis data interaktif. Menggabungkan estetika visual high-tech dengan arsitektur kode yang bersih dan scalable.",
@@ -64,9 +64,9 @@ export const PERSONAL_INFO = {
   socials: {
     github: "https://github.com/alficandradinata",
     linkedin: "https://linkedin.com/in/alficandradinata",
-    instagram: "https://instagram.com/alfi_candra",
-    whatsapp: "https://wa.me/6282288880000?text=Halo%20Alfi,%20saya%20tertarik%20bekerja%20sama%20denganmu!",
-    email: "mailto:alficandradinata@gmail.com",
+    instagram: "https://instagram.com/https://www.instagram.com/alficandra_20?igsi=MWV5bzFoMDd5a2Q3ag%3D%3D&utm_source=qralfi_candra",
+    whatsapp: "https://wa.me/6282321376752?text=Halo%20Alfi,%20saya%20tertarik%20bekerja%20sama%20denganmu!",
+    email: "mailto:alfichandra2003@gmail.com",
   },
 };
 
