@@ -131,7 +131,7 @@ export default function AboutSection() {
               <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-1">
                 <p className="text-xs font-bold text-slate-200 flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-rose-400" />
-                  Pekanbaru & Medan
+                  Pekanbaru
                 </p>
                 <p className="text-[11px] text-slate-400 leading-relaxed">
                   Terbuka untuk kolaborasi remote di seluruh Indonesia dan global.

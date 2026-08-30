@@ -48,7 +48,7 @@ export const PERSONAL_INFO = {
   handle: "alfi_candra",
   role: "Full-Stack Software Engineer & Builder",
   subRole: "Web Architect • Mobile Dev • Python & Data Explorer",
-  location: "Pekanbaru & Medan, Indonesia",
+  location: "Pekanbaru, Indonesia",
   timezone: "Asia/Jakarta (WIB • UTC+7)",
   email: "alfichandra2003@gmail.com",
   phone: "+62 823-2137-6752",
@@ -204,7 +204,7 @@ export const TIMELINE: TimelineItem[] = [
     period: "2025 - Sekarang",
     role: "Full-Stack Software Engineer & Final Year Student",
     company: "Independent / Capstone Project",
-    location: "Medan / Pekanbaru, ID",
+    location: "Pekanbaru, ID",
     description: "Mengerjakan sistem inventaris canggih, penelitian skripsi software engineering, dan mengeksplorasi arsitektur web modern Next.js & Python.",
     achievements: [
       "Mengembangkan Sales & Inventory Tracking System dengan Barcode Integration",
