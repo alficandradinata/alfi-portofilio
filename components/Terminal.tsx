@@ -23,11 +23,6 @@ export default function Terminal({
     {
       id: "welcome-1",
       type: "system",
-      text: "✨ Loki Magic Interface v1.0 [Alfi Edition] initialized.",
-    },
-    {
-      id: "welcome-2",
-      type: "output",
       text: "Ketik command atau klik tombol di bawah untuk mengeksplorasi profil Alfi Candra Dinata.",
     },
   ]);
@@ -288,7 +283,7 @@ export default function Terminal({
           </div>
           <span className="font-mono text-slate-400 font-medium ml-2 flex items-center gap-1.5">
             <TerminalIcon className="w-3.5 h-3.5 text-emerald-400" />
-            <span>alfi@loki-magic:~</span>
+            <span>alfi candra dinata:~</span>
           </span>
         </div>
 

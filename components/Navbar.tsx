@@ -61,7 +61,7 @@ export default function Navbar({
           href="#top"
           onClick={() => sound.playClick()}
           className="group flex items-center gap-2.5 text-white font-bold tracking-wider"
-          aria-label="Alfi Candra Homepage"
+          aria-label="Alfi Candra Dinata Homepage"
         >
           <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 via-green-400 to-lime-400 p-[1.5px] shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/35 transition-all group-hover:scale-105">
             <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
@@ -75,7 +75,7 @@ export default function Navbar({
               ALFI CANDRA <span className="text-emerald-500 font-mono">/</span>
             </span>
             <span className="text-[10px] font-mono text-slate-400 tracking-widest uppercase">
-              loki.magic
+              student & builder
             </span>
           </div>
         </a>

@@ -16,31 +16,6 @@ export default function Home() {
   const [currentThemeId, setCurrentThemeId] = useState<string>("loki");
   const [soundActive, setSoundActive] = useState<boolean>(false);
 
-  React.useEffect(() => {
-    const cursor = document.createElement("div");
-    cursor.className = "magic-cursor";
-    document.body.appendChild(cursor);
-
-    const moveCursor = (event: MouseEvent) => {
-      cursor.style.left = `${event.clientX}px`;
-      cursor.style.top = `${event.clientY}px`;
-      cursor.classList.remove("is-hidden");
-    };
-
-    const handleMouseLeave = () => cursor.classList.add("is-hidden");
-    const handleMouseEnter = () => cursor.classList.remove("is-hidden");
-
-    window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mouseleave", handleMouseLeave);
-    window.addEventListener("mouseenter", handleMouseEnter);
-
-    return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mouseleave", handleMouseLeave);
-      window.removeEventListener("mouseenter", handleMouseEnter);
-      cursor.remove();
-    };
-  }, []);
 
   const activeTheme = THEMES.find((t) => t.id === currentThemeId) || THEMES[0];
 

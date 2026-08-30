@@ -151,7 +151,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "smart-portfolio",
-    title: "Loki Magic Interactive Portfolio",
+    title: "Loki Magic Interactive",
     category: "web",
     tagline: "Portofolio cyberpunk bernafas sihir Loki dengan terminal interaktif dan background mistik",
     description: "Portfolio web interaktif dengan tema Loki, terminal emulator terintegrasi, dan efek canvas yang lebih halus dan ambient.",
