@@ -51,7 +51,7 @@ export default function Navbar({
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-slate-950/80 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/40 py-3.5"
+          ? "bg-slate-950/80 backdrop-blur-xl border-b border-emerald-500/15 shadow-lg shadow-emerald-950/20 py-3.5"
           : "bg-transparent py-5"
       }`}
     >
@@ -63,16 +63,16 @@ export default function Navbar({
           className="group flex items-center gap-2.5 text-white font-bold tracking-wider"
           aria-label="Alfi Candra Homepage"
         >
-          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-600 via-red-500 to-cyan-500 p-[1.5px] shadow-lg shadow-rose-500/20 group-hover:shadow-rose-500/40 transition-all group-hover:scale-105">
+          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 via-green-400 to-lime-400 p-[1.5px] shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/35 transition-all group-hover:scale-105">
             <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-              <span className="font-mono text-sm font-bold bg-gradient-to-r from-rose-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="font-mono text-sm font-bold bg-gradient-to-r from-emerald-300 to-lime-300 bg-clip-text text-transparent">
                 AC
               </span>
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="font-black text-sm tracking-tight text-white group-hover:text-rose-400 transition-colors flex items-center gap-1">
-              ALFI CANDRA <span className="text-rose-500 font-mono">/</span>
+            <span className="font-black text-sm tracking-tight text-white group-hover:text-emerald-400 transition-colors flex items-center gap-1">
+              ALFI CANDRA <span className="text-emerald-500 font-mono">/</span>
             </span>
             <span className="text-[10px] font-mono text-slate-400 tracking-widest uppercase">
               multiverse.dev
@@ -105,10 +105,10 @@ export default function Navbar({
                 sound.playClick();
               }}
               onMouseEnter={() => sound.playHover()}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/80 border border-white/15 text-xs font-mono text-slate-200 hover:border-rose-500/50 hover:bg-slate-800/80 transition-all"
-              title="Ganti Tema Spider-Verse"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/80 border border-white/15 text-xs font-mono text-slate-200 hover:border-emerald-500/50 hover:bg-slate-800/80 transition-all"
+              title="Ganti Tema"
             >
-              <Palette className="w-3.5 h-3.5 text-rose-400" />
+              <Palette className="w-3.5 h-3.5 text-emerald-400" />
               <span className="hidden sm:inline-block text-[11px]">Tema: {activeThemeObj.name.split(" ")[0]}</span>
             </button>
 

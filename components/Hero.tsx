@@ -86,7 +86,7 @@ export default function Hero({ soundActive, onToggleSound }: HeroProps) {
           <div className="lg:col-span-7 space-y-6 text-left">
             
             {/* Status Pill */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-rose-500/30 backdrop-blur-md shadow-lg shadow-rose-950/20">
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 backdrop-blur-md shadow-lg shadow-emerald-950/20">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
@@ -98,23 +98,23 @@ export default function Hero({ soundActive, onToggleSound }: HeroProps) {
 
             {/* Main Headline */}
             <div className="space-y-2">
-              <p className="text-xs font-mono text-rose-400 font-bold uppercase tracking-[0.2em] flex items-center gap-2">
-                <span className="w-6 h-[2px] bg-rose-500 inline-block" />
+              <p className="text-xs font-mono text-emerald-400 font-bold uppercase tracking-[0.2em] flex items-center gap-2">
+                <span className="w-6 h-[2px] bg-emerald-500 inline-block" />
                 PORTFOLIO • ALFI CANDRA DINATA
               </p>
               
               <h1 className="text-4xl sm:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.05]">
                 I Build Next-Gen <br />
-                <span className="bg-gradient-to-r from-rose-500 via-red-500 to-amber-400 bg-clip-text text-transparent italic">
+                <span className="bg-gradient-to-r from-emerald-400 via-green-300 to-lime-300 bg-clip-text text-transparent italic">
                   Digital Worlds.
                 </span>
               </h1>
 
               {/* Animated Rotating Subtitle */}
-              <div className="h-8 flex items-center gap-2 font-mono text-sm sm:text-lg text-cyan-300">
-                <span className="text-rose-400 font-bold">&gt;</span>
+              <div className="h-8 flex items-center gap-2 font-mono text-sm sm:text-lg text-emerald-200">
+                <span className="text-emerald-400 font-bold">&gt;</span>
                 <span className="font-semibold">{displayText}</span>
-                <span className="w-2.5 h-5 bg-amber-400 animate-pulse inline-block" />
+                <span className="w-2.5 h-5 bg-lime-300 animate-pulse inline-block" />
               </div>
             </div>
 
@@ -129,11 +129,11 @@ export default function Hero({ soundActive, onToggleSound }: HeroProps) {
                 href="#work"
                 onClick={triggerCelebrate}
                 onMouseEnter={() => sound.playHover()}
-                className="group relative inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-gradient-to-r from-rose-600 via-red-500 to-rose-700 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-rose-600/30 hover:shadow-rose-600/50 hover:scale-[1.03] active:scale-95 transition-all overflow-hidden"
+                className="group relative inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 via-green-500 to-lime-500 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-emerald-600/30 hover:shadow-emerald-500/40 hover:scale-[1.03] active:scale-95 transition-all overflow-hidden"
               >
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 <span className="relative flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-amber-300" />
+                  <Zap className="w-4 h-4 text-lime-200" />
                   Lihat Karya Unggulan
                 </span>
                 <ArrowUpRight className="relative w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -143,9 +143,9 @@ export default function Hero({ soundActive, onToggleSound }: HeroProps) {
                 href="#contact"
                 onClick={() => sound.playClick()}
                 onMouseEnter={() => sound.playHover()}
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 text-slate-200 hover:text-white font-medium text-xs sm:text-sm border border-slate-700/80 hover:border-cyan-500/50 transition-all active:scale-95 shadow-md"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 text-slate-200 hover:text-white font-medium text-xs sm:text-sm border border-slate-700/80 hover:border-emerald-500/50 transition-all active:scale-95 shadow-md"
               >
-                <Mail className="w-4 h-4 text-cyan-400" />
+                <Mail className="w-4 h-4 text-emerald-400" />
                 <span>Konsultasi Proyek</span>
               </a>
 
@@ -155,7 +155,7 @@ export default function Hero({ soundActive, onToggleSound }: HeroProps) {
                 rel="noreferrer"
                 onClick={() => sound.playClick()}
                 onMouseEnter={() => sound.playHover()}
-                className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-slate-950/60 hover:bg-slate-900 text-slate-400 hover:text-slate-200 text-xs font-mono border border-slate-800 hover:border-slate-600 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-slate-950/60 hover:bg-slate-900 text-slate-400 hover:text-slate-200 text-xs font-mono border border-slate-800 hover:border-emerald-500/40 transition-colors"
                 title="Buka Profil GitHub"
               >
                 <GithubIcon className="w-4 h-4" />
@@ -171,7 +171,7 @@ export default function Hero({ soundActive, onToggleSound }: HeroProps) {
                   href={PERSONAL_INFO.socials.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 border border-slate-800 hover:border-rose-500/40 transition-colors"
+                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-400 border border-slate-800 hover:border-emerald-500/40 transition-colors"
                   aria-label="GitHub"
                 >
                   <GithubIcon className="w-4 h-4" />
@@ -180,7 +180,7 @@ export default function Hero({ soundActive, onToggleSound }: HeroProps) {
                   href={PERSONAL_INFO.socials.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-cyan-500/20 text-slate-400 hover:text-cyan-400 border border-slate-800 hover:border-cyan-500/40 transition-colors"
+                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-green-500/20 text-slate-400 hover:text-green-400 border border-slate-800 hover:border-green-500/40 transition-colors"
                   aria-label="LinkedIn"
                 >
                   <LinkedinIcon className="w-4 h-4" />
@@ -189,14 +189,14 @@ export default function Hero({ soundActive, onToggleSound }: HeroProps) {
                   href={PERSONAL_INFO.socials.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-pink-500/20 text-slate-400 hover:text-pink-400 border border-slate-800 hover:border-pink-500/40 transition-colors"
+                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-lime-500/20 text-slate-400 hover:text-lime-400 border border-slate-800 hover:border-lime-500/40 transition-colors"
                   aria-label="Instagram"
                 >
                   <InstagramIcon className="w-4 h-4" />
                 </a>
                 <a
                   href={`mailto:${PERSONAL_INFO.email}`}
-                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-amber-500/20 text-slate-400 hover:text-amber-400 border border-slate-800 hover:border-amber-500/40 transition-colors"
+                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-300 border border-slate-800 hover:border-emerald-500/40 transition-colors"
                   aria-label="Email"
                 >
                   <Mail className="w-4 h-4" />
