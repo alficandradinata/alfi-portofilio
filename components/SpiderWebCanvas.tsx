@@ -131,10 +131,6 @@ export default function SpiderWebCanvas({
       });
     };
 
-    const handlePointerDown = (e: PointerEvent) => {
-      createWebBurst(e.clientX, e.clientY);
-    };
-
     const handleResize = () => {
       if (!canvas) return;
       width = canvas.width = window.innerWidth;
@@ -158,7 +154,6 @@ export default function SpiderWebCanvas({
       }
     };
 
-    window.addEventListener("pointerdown", handlePointerDown);
     window.addEventListener("resize", handleResize);
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseleave", handleMouseLeave);
@@ -330,7 +325,6 @@ export default function SpiderWebCanvas({
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);

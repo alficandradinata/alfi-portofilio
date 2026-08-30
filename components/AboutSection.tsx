@@ -45,12 +45,12 @@ export default function AboutSection() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-400 text-xs font-mono font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider">
               <Compass className="w-3.5 h-3.5" /> Identity & Philosophy
             </div>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
               About Me & <br />
-              <span className="bg-gradient-to-r from-pink-500 via-rose-500 to-amber-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-transparent">
                 The Engineering Mindset.
               </span>
             </h2>
@@ -66,16 +66,16 @@ export default function AboutSection() {
           {/* Main Story Card (Large 8 cols) */}
           <div
             onMouseEnter={() => sound.playHover()}
-            className="md:col-span-8 p-7 sm:p-9 rounded-3xl bg-slate-950/80 border border-slate-800/80 hover:border-rose-500/40 backdrop-blur-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-rose-950/20"
+            className="md:col-span-8 p-7 sm:p-9 rounded-3xl bg-slate-950/80 border border-slate-800/80 hover:border-emerald-500/40 backdrop-blur-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-950/20"
           >
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-rose-400 text-xs font-mono font-bold uppercase tracking-wider">
+              <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider">
                 <Sparkles className="w-4 h-4" /> Filosofi Rekayasa
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-black text-white leading-snug">
                 &ldquo;Curious by default. <br />
-                <span className="text-rose-400">Useful on purpose.&rdquo;</span>
+                <span className="text-emerald-400">Useful on purpose.&rdquo;</span>
               </h3>
 
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -106,7 +106,7 @@ export default function AboutSection() {
           {/* Live Time & Location Card (4 cols) */}
           <div
             onMouseEnter={() => sound.playHover()}
-            className="md:col-span-4 p-7 rounded-3xl bg-slate-950/80 border border-slate-800/80 hover:border-cyan-500/40 backdrop-blur-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-950/20"
+            className="md:col-span-4 p-7 rounded-3xl bg-slate-950/80 border border-slate-800/80 hover:border-emerald-500/40 backdrop-blur-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-950/20"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -130,7 +130,7 @@ export default function AboutSection() {
 
               <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-1">
                 <p className="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-rose-400" />
+                  <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                   Pekanbaru
                 </p>
                 <p className="text-[11px] text-slate-400 leading-relaxed">
@@ -150,7 +150,7 @@ export default function AboutSection() {
             onMouseEnter={() => sound.playHover()}
             className="md:col-span-4 p-6 sm:p-7 rounded-3xl bg-slate-950/80 border border-slate-800/80 hover:border-amber-500/40 backdrop-blur-xl transition-all duration-300"
           >
-            <div className="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider mb-4 flex items-center gap-1.5">
+            <div className="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider mb-4 flex items-center gap-1.5">
               <Code className="w-3.5 h-3.5" /> Core Disciplines
             </div>
 
@@ -175,7 +175,7 @@ export default function AboutSection() {
             onMouseEnter={() => sound.playHover()}
             className="md:col-span-8 p-6 sm:p-7 rounded-3xl bg-slate-950/80 border border-slate-800/80 hover:border-emerald-500/40 backdrop-blur-xl transition-all duration-300 flex flex-col justify-between"
           >
-            <div className="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider mb-4 flex items-center gap-1.5">
+            <div className="text-xs font-mono text-lime-400 font-bold uppercase tracking-wider mb-4 flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5" /> Prinsip & Etos Kerja
             </div>
 
@@ -208,7 +208,7 @@ export default function AboutSection() {
 
             <div className="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
               <span>Ready for high-impact projects</span>
-              <span className="text-rose-400 font-bold">2026 Edition</span>
+              <span className="text-emerald-400 font-bold">2026 Edition</span>
             </div>
           </div>
 
