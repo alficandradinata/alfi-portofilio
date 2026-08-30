@@ -27,21 +27,15 @@ export default function Home() {
       cursor.classList.remove("is-hidden");
     };
 
-    const handleMouseDown = () => cursor.classList.add("is-clicking");
-    const handleMouseUp = () => cursor.classList.remove("is-clicking");
     const handleMouseLeave = () => cursor.classList.add("is-hidden");
     const handleMouseEnter = () => cursor.classList.remove("is-hidden");
 
     window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
     window.addEventListener("mouseleave", handleMouseLeave);
     window.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("mouseenter", handleMouseEnter);
       cursor.remove();
