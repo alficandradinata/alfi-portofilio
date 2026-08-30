@@ -9,8 +9,6 @@ import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import SpiderWebCanvas from "@/components/SpiderWebCanvas";
-import { CornerSpiderWeb, SpiderSenseHud } from "@/components/SpiderDecorations";
 import { THEMES } from "@/data/portfolioData";
 import { sound } from "@/lib/soundEffects";
 
@@ -69,25 +67,6 @@ export default function Home() {
         backgroundColor: "#030712",
       }}
     >
-      {/* Loki-inspired magical background canvas */}
-      <SpiderWebCanvas
-        accentColor={activeTheme.accent}
-        secondaryColor={activeTheme.secondary}
-      />
-
-      {/* Corner magic accents */}
-      <CornerSpiderWeb position="top-left" color={activeTheme.accent} />
-      <CornerSpiderWeb position="top-right" color={activeTheme.secondary} />
-
-      {/* Loki magic grid overlay */}
-      <div
-        className="fixed inset-0 loki-grid-pattern pointer-events-none opacity-40 z-0"
-        aria-hidden="true"
-      />
-
-      {/* Floating Loki magic HUD */}
-      <SpiderSenseHud />
-
       {/* Header Navigation */}
       <Navbar
         currentTheme={currentThemeId}

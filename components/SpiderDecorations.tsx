@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import { Sparkles, HelpCircle } from "lucide-react";
-import { sound } from "@/lib/soundEffects";
+import React from "react";
 
 export function CornerSpiderWeb({
   position = "top-left",
@@ -90,4 +88,8 @@ export function CornerSpiderWeb({
       </svg>
     </div>
   );
+}
+
+export function SpiderSenseHud() {
+  return null;
 }
