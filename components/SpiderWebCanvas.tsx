@@ -94,36 +94,22 @@ export default function SpiderWebCanvas({
     }
 
     const createWebBurst = (clickX: number, clickY: number) => {
-      const spokeCount = Math.floor(Math.random() * 4) + 8; // 8 to 11 spokes
-      const ringCount = Math.floor(Math.random() * 2) + 4; // 4 to 5 concentric web rings
-      const maxRadius = isMobile
-        ? Math.random() * 30 + 80
-        : Math.random() * 40 + 110;
+      const maxRadius = isMobile ? 70 : 110;
+      const smokeCount = isMobile ? 26 : 42;
 
-      const spokes: WebSpoke[] = [];
-      for (let i = 0; i < spokeCount; i++) {
-        const baseAngle = ((Math.PI * 2) / spokeCount) * i;
-        spokes.push({
-          angle: baseAngle + (Math.random() - 0.5) * 0.15,
-          lengthMultiplier: 0.85 + Math.random() * 0.3,
-        });
-      }
-
-      // Sparkle silk droplets
       const sparks: SparkParticle[] = [];
-      const sparkCount = isMobile ? 12 : 22;
-      for (let i = 0; i < sparkCount; i++) {
+      for (let i = 0; i < smokeCount; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 3.5 + 1.2;
+        const speed = Math.random() * 2.8 + 0.8;
         sparks.push({
           x: clickX,
           y: clickY,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 0.5,
-          size: Math.random() * 2 + 1,
-          alpha: 1,
-          decay: Math.random() * 0.025 + 0.015,
-          color: Math.random() > 0.4 ? accentColor : secondaryColor,
+          vx: Math.cos(angle) * speed * 0.8,
+          vy: Math.sin(angle) * speed * 0.7 - 0.4,
+          size: Math.random() * 14 + 10,
+          alpha: 0.9,
+          decay: Math.random() * 0.018 + 0.01,
+          color: Math.random() > 0.5 ? "#86efac" : "#4ade80",
         });
       }
 
@@ -131,21 +117,18 @@ export default function SpiderWebCanvas({
         id: Date.now() + Math.random(),
         x: clickX,
         y: clickY,
-        radius: 4,
+        radius: 8,
         maxRadius,
-        spokeCount,
-        ringCount,
-        spokes,
+        spokeCount: 0,
+        ringCount: 0,
+        spokes: [],
         sparks,
         alpha: 1,
-        fadeSpeed: 0.014,
-        color: accentColor,
-        secondaryColor: secondaryColor,
+        fadeSpeed: 0.02,
+        color: "#bbf7d0",
+        secondaryColor: "#4ade80",
         rotation: Math.random() * Math.PI,
       });
-
-      // Sound trigger
-      sound.playWebShoot();
     };
 
     const handlePointerDown = (e: PointerEvent) => {
@@ -277,101 +260,59 @@ export default function SpiderWebCanvas({
         ctx.arc(burst.x, burst.y, burst.radius * 1.1, 0, Math.PI * 2);
         ctx.fill();
 
-        // Draw Radial Spokes
-        ctx.lineWidth = 1.2;
-        ctx.strokeStyle = burst.color;
-        ctx.shadowColor = burst.color;
-        ctx.shadowBlur = 8;
-
-        const spokeEndpoints: { x: number; y: number }[][] = [];
-        for (let r = 0; r < burst.ringCount; r++) {
-          spokeEndpoints.push([]);
-        }
-
-        burst.spokes.forEach((spoke) => {
-          const currentSpokeLen = burst.radius * spoke.lengthMultiplier;
-          const endX = burst.x + Math.cos(spoke.angle + burst.rotation) * currentSpokeLen;
-          const endY = burst.y + Math.sin(spoke.angle + burst.rotation) * currentSpokeLen;
-
-          ctx.beginPath();
-          ctx.moveTo(burst.x, burst.y);
-          ctx.lineTo(endX, endY);
-          ctx.stroke();
-
-          // Store ring node positions
-          for (let r = 0; r < burst.ringCount; r++) {
-            const ringDist = (currentSpokeLen * (r + 1)) / burst.ringCount;
-            const rx = burst.x + Math.cos(spoke.angle + burst.rotation) * ringDist;
-            const ry = burst.y + Math.sin(spoke.angle + burst.rotation) * ringDist;
-            spokeEndpoints[r].push({ x: rx, y: ry });
-          }
-        });
-
-        // Draw Concentric Spiral/Polygon Web Rings
-        ctx.lineWidth = 1.0;
-        ctx.strokeStyle = burst.secondaryColor;
+        // Draw Loki-style green smoke magic burst
+        ctx.shadowBlur = 18;
         ctx.shadowColor = burst.secondaryColor;
-        ctx.shadowBlur = 6;
 
-        for (let r = 0; r < burst.ringCount; r++) {
-          const ringNodes = spokeEndpoints[r];
-          if (ringNodes.length > 2) {
-            ctx.beginPath();
-            ctx.moveTo(ringNodes[0].x, ringNodes[0].y);
-
-            for (let k = 1; k < ringNodes.length; k++) {
-              // Add slight curve between web nodes
-              const prev = ringNodes[k - 1];
-              const curr = ringNodes[k];
-              const midX = (prev.x + curr.x) / 2;
-              const midY = (prev.y + curr.y) / 2;
-              const inwardSag = 0.94; // slight web sag towards center
-              const sagX = burst.x + (midX - burst.x) * inwardSag;
-              const sagY = burst.y + (midY - burst.y) * inwardSag;
-
-              ctx.quadraticCurveTo(sagX, sagY, curr.x, curr.y);
-            }
-
-            // Close the loop back to first node
-            const last = ringNodes[ringNodes.length - 1];
-            const first = ringNodes[0];
-            const midX = (last.x + first.x) / 2;
-            const midY = (last.y + first.y) / 2;
-            const sagX = burst.x + (midX - burst.x) * 0.94;
-            const sagY = burst.y + (midY - burst.y) * 0.94;
-            ctx.quadraticCurveTo(sagX, sagY, first.x, first.y);
-
-            ctx.stroke();
-          }
-        }
-
-        // Draw Web Center Spider Core Dot
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = "#ffffff";
-        ctx.fillStyle = "#ffffff";
-        ctx.beginPath();
-        ctx.arc(burst.x, burst.y, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Animate & Draw Spark Silk Droplets
-        ctx.shadowBlur = 4;
         for (let sIdx = 0; sIdx < burst.sparks.length; sIdx++) {
           const sp = burst.sparks[sIdx];
           sp.x += sp.vx;
           sp.y += sp.vy;
-          sp.vy += 0.04; // subtle gravity
+          sp.vx *= 0.985;
+          sp.vy = sp.vy * 0.99 - 0.02;
           sp.alpha -= sp.decay;
 
           if (sp.alpha > 0) {
-            ctx.fillStyle = sp.color;
+            const smokeGradient = ctx.createRadialGradient(
+              sp.x,
+              sp.y,
+              0,
+              sp.x,
+              sp.y,
+              sp.size * 1.8
+            );
+            smokeGradient.addColorStop(0, `${sp.color}ee`);
+            smokeGradient.addColorStop(0.35, `${burst.secondaryColor}cc`);
+            smokeGradient.addColorStop(0.7, `${burst.color}55`);
+            smokeGradient.addColorStop(1, "transparent");
+
+            ctx.fillStyle = smokeGradient;
             ctx.globalAlpha = Math.max(0, sp.alpha * burst.alpha);
             ctx.beginPath();
-            ctx.arc(sp.x, sp.y, sp.size, 0, Math.PI * 2);
+            ctx.arc(sp.x, sp.y, sp.size * 1.8, 0, Math.PI * 2);
             ctx.fill();
           }
         }
 
-        // Reset shadow
+        // Soft magical glow at the source
+        const magicGlow = ctx.createRadialGradient(
+          burst.x,
+          burst.y,
+          0,
+          burst.x,
+          burst.y,
+          burst.radius * 2.2
+        );
+        magicGlow.addColorStop(0, "rgba(187, 247, 208, 0.9)");
+        magicGlow.addColorStop(0.3, "rgba(74, 222, 128, 0.55)");
+        magicGlow.addColorStop(1, "transparent");
+
+        ctx.fillStyle = magicGlow;
+        ctx.globalAlpha = burst.alpha * 0.9;
+        ctx.beginPath();
+        ctx.arc(burst.x, burst.y, burst.radius * 2.2, 0, Math.PI * 2);
+        ctx.fill();
+
         ctx.shadowBlur = 0;
       }
 

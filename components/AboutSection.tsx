@@ -79,7 +79,7 @@ export default function AboutSection() {
               </h3>
 
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Saya adalah software engineer berbasis di Medan & Pekanbaru yang terobsesi dengan titik temu antara desain antarmuka yang elegan dan rekayasa perangkat lunak yang kokoh.
+                Saya adalah software engineer berbasis di Pekanbaru yang terobsesi dengan titik temu antara desain antarmuka yang elegan dan rekayasa perangkat lunak yang kokoh.
               </p>
 
               <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
