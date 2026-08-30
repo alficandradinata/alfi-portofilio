@@ -91,29 +91,3 @@ export function CornerSpiderWeb({
     </div>
   );
 }
-
-export function SpiderSenseHud() {
-  const [minimized, setMinimized] = useState(false);
-
-  return (
-    <aside
-      aria-label="Loki magic HUD"
-      className="fixed bottom-5 right-5 z-40 flex items-center gap-2 select-none animate-in fade-in slide-in-from-bottom-3 duration-500"
-    >
-      <div className="group relative flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-950/85 border border-emerald-400/40 backdrop-blur-xl shadow-xl shadow-emerald-950/30 text-xs font-mono text-slate-200">
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-        </span>
-
-        <span className="font-bold bg-gradient-to-r from-emerald-300 via-green-300 to-lime-200 bg-clip-text text-transparent">
-          ✨ LOKI MAGIC
-        </span>
-
-        <span className="hidden sm:inline-block text-[11px] text-slate-300 border-l border-slate-700 pl-2">
-          Klik di mana saja untuk membentuk asap sihir!
-        </span>
-      </div>
-    </aside>
-  );
-}
