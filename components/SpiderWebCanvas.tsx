@@ -52,8 +52,8 @@ interface WebBurst {
 }
 
 export default function SpiderWebCanvas({
-  accentColor = "#ff3366",
-  secondaryColor = "#00f0ff",
+  accentColor = "#4ade80",
+  secondaryColor = "#d1fae5",
 }: SpiderWebCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const burstsRef = useRef<WebBurst[]>([]);
@@ -69,9 +69,9 @@ export default function SpiderWebCanvas({
     let height = (canvas.height = window.innerHeight);
 
     const isMobile = width < 768;
-    const particleCount = isMobile ? 35 : 75;
-    const connectionDist = isMobile ? 95 : 140;
-    const mouseConnectionDist = isMobile ? 120 : 180;
+    const particleCount = isMobile ? 18 : 34;
+    const connectionDist = isMobile ? 80 : 110;
+    const mouseConnectionDist = isMobile ? 110 : 150;
 
     const mouse = {
       x: -1000,
@@ -109,7 +109,7 @@ export default function SpiderWebCanvas({
           size: Math.random() * 14 + 10,
           alpha: 0.9,
           decay: Math.random() * 0.018 + 0.01,
-          color: Math.random() > 0.5 ? "#86efac" : "#4ade80",
+          color: Math.random() > 0.5 ? "#bbf7d0" : "#4ade80",
         });
       }
 
@@ -170,26 +170,34 @@ export default function SpiderWebCanvas({
       step += 1;
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Draw Ambient Floating Constellation Web
+      // 1. Draw ambient Loki-esque magical constellation
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
         p.x += p.vx;
         p.y += p.vy;
 
-        // Bounce on edges
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
-        // Draw particle dot
-        const currentAlpha = p.alpha + Math.sin(step * p.pulseSpeed) * 0.15;
+        const currentAlpha = p.alpha + Math.sin(step * p.pulseSpeed) * 0.12;
+
+        const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 5.5);
+        glow.addColorStop(0, `${accentColor}cc`);
+        glow.addColorStop(0.25, `${secondaryColor}55`);
+        glow.addColorStop(1, "transparent");
+        ctx.fillStyle = glow;
+        ctx.globalAlpha = Math.max(0.12, Math.min(0.45, currentAlpha));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 5.5, 0, Math.PI * 2);
+        ctx.fill();
+
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = i % 2 === 0 ? accentColor : secondaryColor;
-        ctx.globalAlpha = Math.max(0.1, Math.min(0.8, currentAlpha));
+        ctx.globalAlpha = Math.max(0.15, Math.min(0.75, currentAlpha));
         ctx.fill();
 
-        // Connect nearby particles (web strands)
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;
@@ -197,35 +205,33 @@ export default function SpiderWebCanvas({
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < connectionDist) {
-            const lineAlpha = (1 - dist / connectionDist) * 0.22;
+            const lineAlpha = (1 - dist / connectionDist) * 0.12;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
             ctx.strokeStyle = i % 3 === 0 ? accentColor : secondaryColor;
             ctx.globalAlpha = lineAlpha;
-            ctx.lineWidth = 0.75;
+            ctx.lineWidth = 0.55;
             ctx.stroke();
           }
         }
 
-        // Connect to mouse cursor
         const mdx = p.x - mouse.x;
         const mdy = p.y - mouse.y;
         const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
 
         if (mDist < mouseConnectionDist) {
-          const mAlpha = (1 - mDist / mouseConnectionDist) * 0.55;
+          const mAlpha = (1 - mDist / mouseConnectionDist) * 0.26;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(mouse.x, mouse.y);
           ctx.strokeStyle = accentColor;
           ctx.globalAlpha = mAlpha;
-          ctx.lineWidth = 1.1;
+          ctx.lineWidth = 0.75;
           ctx.stroke();
 
-          // Gentle gravity pull toward mouse
-          p.x -= (mdx / mDist) * 0.35;
-          p.y -= (mdy / mDist) * 0.35;
+          p.x -= (mdx / mDist) * 0.12;
+          p.y -= (mdy / mDist) * 0.12;
         }
       }
 

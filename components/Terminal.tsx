@@ -23,7 +23,7 @@ export default function Terminal({
     {
       id: "welcome-1",
       type: "system",
-      text: "⚡ Spider-Verse Interactive OS v3.2 [Alfi Edition] initialized.",
+      text: "✨ Loki Magic Interface v1.0 [Alfi Edition] initialized.",
     },
     {
       id: "welcome-2",
@@ -43,7 +43,7 @@ export default function Terminal({
     }
   }, [history]);
 
-  const quickCommands = ["help", "whoami", "skills", "projects", "contact", "spidey", "clear"];
+  const quickCommands = ["help", "whoami", "skills", "projects", "contact", "loki", "clear"];
 
   const handleCommand = (cmd: string) => {
     const raw = cmd.trim();
@@ -71,17 +71,17 @@ export default function Terminal({
           type: "output",
           text: (
             <div className="space-y-1 text-xs sm:text-sm">
-              <p className="text-amber-400 font-bold">Daftar Perintah Tersedia:</p>
+              <p className="text-emerald-400 font-bold">Daftar Perintah Tersedia:</p>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 pt-1 text-slate-300">
-                <span><b className="text-cyan-400">whoami</b> : Profil & identitas</span>
-                <span><b className="text-cyan-400">skills</b> : Ringkasan tech stack</span>
-                <span><b className="text-cyan-400">projects</b> : Daftar proyek unggulan</span>
-                <span><b className="text-cyan-400">contact</b> : Info kontak & media</span>
-                <span><b className="text-cyan-400">stack</b> : JSON format tech stack</span>
-                <span><b className="text-cyan-400">status</b> : Status skripsi & kerja</span>
-                <span><b className="text-cyan-400">spidey</b> : Easter egg Spider-Man</span>
-                <span><b className="text-cyan-400">clear</b> : Bersihkan layar terminal</span>
-                <span><b className="text-cyan-400">date</b> : Waktu lokal WIB saat ini</span>
+                <span><b className="text-emerald-300">whoami</b> : Profil & identitas</span>
+                <span><b className="text-emerald-300">skills</b> : Ringkasan tech stack</span>
+                <span><b className="text-emerald-300">projects</b> : Daftar proyek unggulan</span>
+                <span><b className="text-emerald-300">contact</b> : Info kontak & media</span>
+                <span><b className="text-emerald-300">stack</b> : JSON format tech stack</span>
+                <span><b className="text-emerald-300">status</b> : Status skripsi & kerja</span>
+                <span><b className="text-emerald-300">loki</b> : Easter egg magic aura</span>
+                <span><b className="text-emerald-300">clear</b> : Bersihkan layar terminal</span>
+                <span><b className="text-emerald-300">date</b> : Waktu lokal WIB saat ini</span>
               </div>
             </div>
           ),
@@ -194,19 +194,19 @@ export default function Terminal({
         };
         break;
 
-      case "spidey":
-      case "spider":
+      case "loki":
+      case "magic":
         sound.playWebShoot();
         resultLog = {
           id: `${newLogId}-out`,
           type: "output",
           text: (
-            <div className="text-rose-400 font-mono text-[11px] leading-tight">
+            <div className="text-emerald-300 font-mono text-[11px] leading-tight">
               <pre>
-{`   /\\__/\\   "With great code
-  (  o.o )    comes great responsibility!"
-   > ^ <      ~ Miles & Peter Parker
-  /||||||\\    🕸️ Spider-Verse Active`}
+{`   .-"""-.     "I am not a monster.
+  /  .-.  \\   I am a strategist."
+  |  | |  |    ~ Loki Laufeyson
+  \\  '-'  /    ✨ Magic awakened`}
               </pre>
             </div>
           ),
@@ -274,21 +274,21 @@ export default function Terminal({
   };
 
   return (
-    <div className="relative group w-full max-w-xl mx-auto rounded-2xl overflow-hidden border border-rose-500/20 bg-slate-950/80 backdrop-blur-xl shadow-2xl shadow-rose-950/30 transition-all duration-300 hover:border-rose-500/40">
+    <div className="relative group w-full max-w-xl mx-auto rounded-2xl overflow-hidden border border-emerald-500/20 bg-slate-950/80 backdrop-blur-xl shadow-2xl shadow-emerald-950/30 transition-all duration-300 hover:border-emerald-500/40">
       {/* Top ambient glow line */}
-      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-rose-500 via-cyan-400 to-amber-400 opacity-80" />
+      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-emerald-500 via-lime-400 to-cyan-400 opacity-80" />
 
       {/* Terminal Titlebar */}
       <div className="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-800/80 text-xs select-none">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5">
             <span className="w-3 h-3 rounded-full bg-rose-500 shadow-sm shadow-rose-500/50 cursor-pointer hover:opacity-80" onClick={() => setHistory([])} title="Clear Terminal" />
-            <span className="w-3 h-3 rounded-full bg-amber-400 shadow-sm shadow-amber-400/50 cursor-pointer hover:opacity-80" title="Spider Mode" onClick={() => handleCommand("spidey")} />
-            <span className="w-3 h-3 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/50" title="Active" />
+            <span className="w-3 h-3 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/50 cursor-pointer hover:opacity-80" title="Loki Magic" onClick={() => handleCommand("loki")} />
+            <span className="w-3 h-3 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400/50" title="Active" />
           </div>
           <span className="font-mono text-slate-400 font-medium ml-2 flex items-center gap-1.5">
-            <TerminalIcon className="w-3.5 h-3.5 text-rose-400" />
-            <span>alfi@multiverse-os:~</span>
+            <TerminalIcon className="w-3.5 h-3.5 text-emerald-400" />
+            <span>alfi@loki-magic:~</span>
           </span>
         </div>
 
@@ -298,7 +298,7 @@ export default function Terminal({
             onClick={onToggleSound}
             className={`p-1.5 rounded-lg border transition-all ${
               soundActive
-                ? "bg-rose-500/20 border-rose-500/40 text-rose-300"
+                ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-300"
                 : "bg-slate-800/50 border-slate-700/50 text-slate-400 hover:text-slate-200"
             }`}
             title={soundActive ? "Audio Aktif (Klik untuk mute)" : "Audio Mute (Klik untuk mengaktifkan)"}
@@ -379,7 +379,7 @@ export default function Terminal({
               key={cmd}
               onClick={() => handleCommand(cmd)}
               onMouseEnter={() => sound.playHover()}
-              className="px-2 py-0.5 rounded-full text-[11px] font-mono bg-slate-800/90 hover:bg-rose-500/20 text-slate-300 hover:text-rose-300 border border-slate-700/60 hover:border-rose-500/40 transition-all cursor-pointer shrink-0 active:scale-95"
+              className="px-2 py-0.5 rounded-full text-[11px] font-mono bg-slate-800/90 hover:bg-emerald-500/20 text-slate-300 hover:text-emerald-300 border border-slate-700/60 hover:border-emerald-500/40 transition-all cursor-pointer shrink-0 active:scale-95"
             >
               {cmd}
             </button>

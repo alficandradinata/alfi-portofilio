@@ -75,7 +75,7 @@ export default function Navbar({
               ALFI CANDRA <span className="text-emerald-500 font-mono">/</span>
             </span>
             <span className="text-[10px] font-mono text-slate-400 tracking-widest uppercase">
-              multiverse.dev
+              loki.magic
             </span>
           </div>
         </a>
@@ -120,7 +120,7 @@ export default function Navbar({
                 />
                 <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-slate-950/95 backdrop-blur-xl border border-white/15 shadow-2xl p-2 z-50 space-y-1 animate-in fade-in zoom-in-95 duration-150">
                   <div className="px-3 py-1.5 text-[11px] font-mono text-slate-400 uppercase tracking-wider border-b border-slate-800/80 mb-1">
-                    🕸️ Spider-Verse Themes
+                    ✨ Loki Magic Themes
                   </div>
                   {THEMES.map((theme) => (
                     <button
@@ -143,7 +143,7 @@ export default function Navbar({
                         </div>
                       </div>
                       {currentTheme === theme.id && (
-                        <Check className="w-3.5 h-3.5 text-rose-400" />
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
                       )}
                     </button>
                   ))}
@@ -157,10 +157,10 @@ export default function Navbar({
             onClick={onToggleSound}
             className={`p-2 rounded-full border transition-all ${
               soundActive
-                ? "bg-rose-500/20 border-rose-500/50 text-rose-300 shadow-sm shadow-rose-500/20"
+                ? "bg-emerald-500/20 border-emerald-500/50 text-emerald-300 shadow-sm shadow-emerald-500/20"
                 : "bg-slate-900/60 border-white/10 text-slate-400 hover:text-slate-200"
             }`}
-            title={soundActive ? "Mute Suara Interaktif" : "Nyalakan Suara Retro Spider-Verse"}
+            title={soundActive ? "Mute Suara Interaktif" : "Nyalakan Suara Sihir Loki"}
             aria-label="Audio effect toggle"
           >
             {soundActive ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
@@ -170,7 +170,7 @@ export default function Navbar({
           <a
             href="#contact"
             onClick={() => sound.playClick()}
-            className="hidden lg:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-rose-600 to-red-500 hover:from-rose-500 hover:to-red-400 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-rose-600/30 hover:shadow-rose-600/50 transition-all hover:scale-105 active:scale-95"
+            className="hidden lg:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-400 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-emerald-600/30 hover:shadow-emerald-500/50 transition-all hover:scale-105 active:scale-95"
           >
             <span>Let&apos;s Connect</span>
             <ArrowUpRight className="w-3.5 h-3.5" />

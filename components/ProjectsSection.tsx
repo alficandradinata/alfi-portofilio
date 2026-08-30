@@ -125,8 +125,8 @@ export default function ProjectsSection() {
         return (
           <div className="relative w-full h-56 sm:h-64 rounded-2xl bg-gradient-to-br from-slate-900 via-amber-950/30 to-slate-950 flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-amber-500/40 transition-colors">
             <div className="relative z-10 text-center font-mono space-y-2">
-              <Cpu className="w-10 h-10 text-amber-400 mx-auto animate-pulse" />
-              <p className="text-xs text-slate-300 font-bold">&lt;SpiderVerseEngine /&gt;</p>
+              <Cpu className="w-10 h-10 text-emerald-400 mx-auto animate-pulse" />
+              <p className="text-xs text-slate-300 font-bold">&lt;LokiSigilEngine /&gt;</p>
               <p className="text-[10px] text-slate-500">Fast • Responsive • Next.js</p>
             </div>
           </div>
@@ -151,7 +151,7 @@ export default function ProjectsSection() {
             </div>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
               Featured Works & <br />
-              <span className="bg-gradient-to-r from-rose-500 via-amber-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-transparent">
                 Digital Solutions.
               </span>
             </h2>

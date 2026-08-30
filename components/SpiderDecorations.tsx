@@ -97,21 +97,21 @@ export function SpiderSenseHud() {
 
   return (
     <aside
-      aria-label="Spider-Sense HUD"
+      aria-label="Loki magic HUD"
       className="fixed bottom-5 right-5 z-40 flex items-center gap-2 select-none animate-in fade-in slide-in-from-bottom-3 duration-500"
     >
-      <div className="group relative flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-950/85 border border-rose-500/40 backdrop-blur-xl shadow-xl shadow-rose-950/30 text-xs font-mono text-slate-200">
+      <div className="group relative flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-950/85 border border-emerald-400/40 backdrop-blur-xl shadow-xl shadow-emerald-950/30 text-xs font-mono text-slate-200">
         <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500" />
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
         </span>
 
-        <span className="font-bold bg-gradient-to-r from-rose-400 via-red-400 to-amber-300 bg-clip-text text-transparent">
-          🕸️ SPIDER-WEB SHOOTER
+        <span className="font-bold bg-gradient-to-r from-emerald-300 via-green-300 to-lime-200 bg-clip-text text-transparent">
+          ✨ LOKI MAGIC
         </span>
 
-        <span className="hidden sm:inline-block text-[11px] text-slate-400 border-l border-slate-800 pl-2">
-          Klik di mana saja untuk menembak jaring!
+        <span className="hidden sm:inline-block text-[11px] text-slate-300 border-l border-slate-700 pl-2">
+          Klik di mana saja untuk membentuk asap sihir!
         </span>
       </div>
     </aside>

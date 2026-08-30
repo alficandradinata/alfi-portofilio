@@ -69,23 +69,23 @@ export default function Home() {
         backgroundColor: "#030712",
       }}
     >
-      {/* Interactive Spider-Web Click & Constellation Canvas */}
+      {/* Loki-inspired magical background canvas */}
       <SpiderWebCanvas
         accentColor={activeTheme.accent}
         secondaryColor={activeTheme.secondary}
       />
 
-      {/* Corner Spider Web Graphic Accents */}
+      {/* Corner magic accents */}
       <CornerSpiderWeb position="top-left" color={activeTheme.accent} />
       <CornerSpiderWeb position="top-right" color={activeTheme.secondary} />
 
-      {/* Spider-Verse Matrix Grid Pattern Overlay */}
+      {/* Loki magic grid overlay */}
       <div
-        className="fixed inset-0 spider-grid-pattern pointer-events-none opacity-40 z-0"
+        className="fixed inset-0 loki-grid-pattern pointer-events-none opacity-40 z-0"
         aria-hidden="true"
       />
 
-      {/* Floating Spider-Sense Web Shooter HUD */}
+      {/* Floating Loki magic HUD */}
       <SpiderSenseHud />
 
       {/* Header Navigation */}

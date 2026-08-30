@@ -75,9 +75,9 @@ export default function Hero({ soundActive, onToggleSound }: HeroProps) {
       id="top"
       className="relative min-h-[90vh] pt-32 pb-20 flex flex-col justify-center overflow-hidden"
     >
-      {/* Spider Glow Radial Background */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-rose-600/15 blur-[120px] rounded-full pointer-events-none -z-10" />
-      <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-cyan-500/10 blur-[130px] rounded-full pointer-events-none -z-10" />
+      {/* Loki glow radial background */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/15 blur-[120px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-lime-500/10 blur-[130px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
