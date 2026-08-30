@@ -14,12 +14,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Alfi Candra Dinata | Software Engineer & Builder",
-  description: "Portofolio interaktif Alfi Candra Dinata — Full-Stack Web Architect, Mobile Developer, dan Data Explorer bertema Spider-Verse.",
+  description: "Portofolio interaktif Alfi Candra Dinata — Full-Stack Web Architect, Mobile Developer.",
   keywords: [
     "Alfi Candra Dinata",
     "Alfi Candra",
     "Software Engineer",
-    "Web Developer Medan",
     "Web Developer Pekanbaru",
     "Next.js",
     "React Native",

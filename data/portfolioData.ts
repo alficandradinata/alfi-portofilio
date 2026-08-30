@@ -248,6 +248,15 @@ export const TIMELINE: TimelineItem[] = [
 
 export const THEMES = [
   {
+    id: "loki",
+    name: "Loki",
+    tag: "Asgardian Green Magic",
+    accent: "#22c55e",
+    accentGlow: "rgba(34, 197, 94, 0.45)",
+    secondary: "#bbf7d0",
+    class: "theme-loki",
+  },
+  {
     id: "miles",
     name: "Miles Morales",
     tag: "Spider-Verse Neon Crimson",

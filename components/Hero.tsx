@@ -120,7 +120,7 @@ export default function Hero({ soundActive, onToggleSound }: HeroProps) {
 
             {/* Bio Paragraph */}
             <p className="text-slate-300/90 text-sm sm:text-base leading-relaxed max-w-xl">
-              Halo! Saya <span className="text-white font-semibold">{PERSONAL_INFO.name}</span>. Software engineer berbasis di Medan & Pekanbaru yang bersemangat menggabungkan arsitektur kode mutakhir, kecerdasan data, dan antarmuka web & mobile interaktif bergaya modern.
+              Halo! Saya <span className="text-white font-semibold">{PERSONAL_INFO.name}</span>. Software engineer dari Pekanbaru yang bersemangat menggabungkan arsitektur kode mutakhir, kecerdasan data, dan antarmuka web & mobile interaktif bergaya modern.
             </p>
 
             {/* Action Buttons */}
