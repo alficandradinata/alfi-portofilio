@@ -1,6 +1,3 @@
-"use client";
-
-import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SkillsSection from "@/components/SkillsSection";
@@ -9,44 +6,22 @@ import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import { THEMES } from "@/data/portfolioData";
-import { sound } from "@/lib/soundEffects";
 
 export default function Home() {
-  const [currentThemeId, setCurrentThemeId] = useState<string>("loki");
-  const [soundActive, setSoundActive] = useState<boolean>(false);
-
-
-  const activeTheme = THEMES.find((t) => t.id === currentThemeId) || THEMES[0];
-
-  const handleToggleSound = () => {
-    const nextState = !soundActive;
-    setSoundActive(nextState);
-    sound.setEnabled(nextState);
-  };
-
-  const handleSelectTheme = (themeId: string) => {
-    setCurrentThemeId(themeId);
-  };
-
   return (
-    <div
-      className={`min-h-screen relative flex flex-col justify-between transition-colors duration-700 ${activeTheme.class}`}
-      style={{
-        backgroundColor: "#030712",
-      }}
-    >
-      {/* Header Navigation */}
-      <Navbar
-        currentTheme={currentThemeId}
-        onSelectTheme={handleSelectTheme}
-        soundActive={soundActive}
-        onToggleSound={handleToggleSound}
-      />
+    <div className="min-h-screen flex flex-col justify-between bg-surface">
+      {/* Lewati navigasi — untuk pengguna keyboard dan pembaca layar */}
+      <a
+        href="#work"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:rounded-lg focus:bg-brand focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+      >
+        Lewati ke konten utama
+      </a>
 
-      {/* Main Content Flow */}
-      <main className="relative z-10 flex-1">
-        <Hero soundActive={soundActive} onToggleSound={handleToggleSound} />
+      <Navbar />
+
+      <main className="flex-1">
+        <Hero />
         <ProjectsSection />
         <SkillsSection />
         <AboutSection />
@@ -54,7 +29,6 @@ export default function Home() {
         <ContactSection />
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );

@@ -1,233 +1,163 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Sparkles, Volume2, VolumeX, Menu, X, ArrowUpRight, Palette, Code, Check } from "lucide-react";
-import { PERSONAL_INFO, THEMES } from "@/data/portfolioData";
-import { sound } from "@/lib/soundEffects";
+import { useState, useEffect } from "react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
+import { PERSONAL_INFO } from "@/data/portfolioData";
 
-interface NavbarProps {
-  currentTheme: string;
-  onSelectTheme: (themeId: string) => void;
-  soundActive: boolean;
-  onToggleSound: () => void;
-}
+const NAV_LINKS = [
+  { name: "Beranda", href: "#top", id: "top" },
+  { name: "Proyek", href: "#work", id: "work" },
+  { name: "Keahlian", href: "#skills", id: "skills" },
+  { name: "Tentang", href: "#about", id: "about" },
+  { name: "Perjalanan", href: "#journey", id: "journey" },
+  { name: "Kontak", href: "#contact", id: "contact" },
+];
 
-export default function Navbar({
-  currentTheme,
-  onSelectTheme,
-  soundActive,
-  onToggleSound,
-}: NavbarProps) {
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [themeDropdownOpen, setThemeDropdownOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("top");
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 16);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Home", href: "#top" },
-    { name: "Projects", href: "#work" },
-    { name: "Skills", href: "#skills" },
-    { name: "About", href: "#about" },
-    { name: "Journey", href: "#journey" },
-    { name: "Contact", href: "#contact" },
-  ];
+  // Tandai tautan navigasi sesuai bagian yang sedang dibaca
+  useEffect(() => {
+    const sections = NAV_LINKS.map((link) =>
+      document.getElementById(link.id)
+    ).filter((el): el is HTMLElement => el !== null);
 
-  const handleThemeChange = (id: string) => {
-    onSelectTheme(id);
-    setThemeDropdownOpen(false);
-    sound.playWebShoot();
-  };
+    if (sections.length === 0) return;
 
-  const activeThemeObj = THEMES.find((t) => t.id === currentTheme) || THEMES[0];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.25, 0.5, 1] }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 z-50 transition-shadow duration-200 ${
         isScrolled
-          ? "bg-slate-950/80 backdrop-blur-xl border-b border-emerald-500/15 shadow-lg shadow-emerald-950/20 py-3.5"
-          : "bg-transparent py-5"
+          ? "bg-surface/95 backdrop-blur-md border-b border-line shadow-sm"
+          : "bg-surface border-b border-transparent"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-        {/* Brand Logo */}
+      <div className="max-w-5xl mx-auto px-5 sm:px-6 h-16 flex items-center justify-between gap-4">
+        {/* Identitas */}
         <a
           href="#top"
-          onClick={() => sound.playClick()}
-          className="group flex items-center gap-2.5 text-white font-bold tracking-wider"
-          aria-label="Alfi Candra Dinata Homepage"
+          className="flex items-center gap-3 shrink-0 rounded-lg"
+          aria-label={`${PERSONAL_INFO.name} — beranda`}
         >
-          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 via-green-400 to-lime-400 p-[1.5px] shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/35 transition-all group-hover:scale-105">
-            <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-              <span className="font-mono text-sm font-bold bg-gradient-to-r from-emerald-300 to-lime-300 bg-clip-text text-transparent">
-                AC
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-black text-sm tracking-tight text-white group-hover:text-emerald-400 transition-colors flex items-center gap-1">
-              ALFI CANDRA <span className="text-emerald-500 font-mono">/</span>
+          <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-brand text-white font-semibold text-sm tracking-tight">
+            AC
+          </span>
+          <span className="hidden sm:flex flex-col leading-tight">
+            <span className="text-sm font-semibold text-ink">
+              {PERSONAL_INFO.name}
             </span>
-            <span className="text-[10px] font-mono text-slate-400 tracking-widest uppercase">
-              student & builder
-            </span>
-          </div>
+            <span className="text-xs text-ink-muted">{PERSONAL_INFO.role}</span>
+          </span>
         </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-900/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full shadow-inner">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => sound.playClick()}
-              onMouseEnter={() => sound.playHover()}
-              className="px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200"
-            >
-              {link.name}
-            </a>
-          ))}
+        {/* Navigasi desktop */}
+        <nav aria-label="Navigasi utama" className="hidden md:flex items-center gap-1">
+          {NAV_LINKS.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                aria-current={isActive ? "true" : undefined}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive
+                    ? "text-brand bg-brand-soft"
+                    : "text-ink-soft hover:text-ink hover:bg-surface-sunken"
+                }`}
+              >
+                {link.name}
+              </a>
+            );
+          })}
         </nav>
 
-        {/* Right Controls (Theme, Sound, Status & Mobile Toggle) */}
-        <div className="flex items-center gap-2.5">
-          {/* Multiverse Theme Switcher Button */}
-          <div className="relative">
-            <button
-              onClick={() => {
-                setThemeDropdownOpen(!themeDropdownOpen);
-                sound.playClick();
-              }}
-              onMouseEnter={() => sound.playHover()}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/80 border border-white/15 text-xs font-mono text-slate-200 hover:border-emerald-500/50 hover:bg-slate-800/80 transition-all"
-              title="Ganti Tema"
-            >
-              <Palette className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="hidden sm:inline-block text-[11px]">Tema: {activeThemeObj.name.split(" ")[0]}</span>
-            </button>
-
-            {themeDropdownOpen && (
-              <>
-                <div
-                  className="fixed inset-0 z-40"
-                  onClick={() => setThemeDropdownOpen(false)}
-                />
-                <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-slate-950/95 backdrop-blur-xl border border-white/15 shadow-2xl p-2 z-50 space-y-1 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="px-3 py-1.5 text-[11px] font-mono text-slate-400 uppercase tracking-wider border-b border-slate-800/80 mb-1">
-                    ✨ Loki Magic Themes
-                  </div>
-                  {THEMES.map((theme) => (
-                    <button
-                      key={theme.id}
-                      onClick={() => handleThemeChange(theme.id)}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all text-left ${
-                        currentTheme === theme.id
-                          ? "bg-rose-500/20 text-white border border-rose-500/30"
-                          : "text-slate-300 hover:bg-white/5 hover:text-white"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <span
-                          className="w-3.5 h-3.5 rounded-full border border-white/20 shadow-sm"
-                          style={{ backgroundColor: theme.accent }}
-                        />
-                        <div>
-                          <p className="font-semibold text-xs">{theme.name}</p>
-                          <p className="text-[10px] text-slate-400 font-mono">{theme.tag}</p>
-                        </div>
-                      </div>
-                      {currentTheme === theme.id && (
-                        <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Sound Synthesizer Toggle */}
-          <button
-            onClick={onToggleSound}
-            className={`p-2 rounded-full border transition-all ${
-              soundActive
-                ? "bg-emerald-500/20 border-emerald-500/50 text-emerald-300 shadow-sm shadow-emerald-500/20"
-                : "bg-slate-900/60 border-white/10 text-slate-400 hover:text-slate-200"
-            }`}
-            title={soundActive ? "Mute Suara Interaktif" : "Nyalakan Suara Sihir Loki"}
-            aria-label="Audio effect toggle"
-          >
-            {soundActive ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-          </button>
-
-          {/* CTA Button */}
+        <div className="flex items-center gap-2">
           <a
             href="#contact"
-            onClick={() => sound.playClick()}
-            className="hidden lg:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-400 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-emerald-600/30 hover:shadow-emerald-500/50 transition-all hover:scale-105 active:scale-95"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand hover:bg-brand-strong text-white text-sm font-semibold transition-colors"
           >
-            <span>Let&apos;s Connect</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
+            Hubungi saya
+            <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
           </a>
 
-          {/* Mobile Menu Button */}
           <button
-            onClick={() => {
-              setMobileMenuOpen(!mobileMenuOpen);
-              sound.playClick();
-            }}
-            className="p-2 rounded-xl bg-slate-900/80 border border-white/10 text-slate-300 hover:text-white md:hidden"
-            aria-label="Toggle mobile menu"
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            className="md:hidden p-2 rounded-lg border border-line text-ink-soft hover:bg-surface-sunken transition-colors"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileMenuOpen ? "Tutup menu" : "Buka menu"}
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? (
+              <X className="w-5 h-5" aria-hidden="true" />
+            ) : (
+              <Menu className="w-5 h-5" aria-hidden="true" />
+            )}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Menu mobile */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[65px] bg-slate-950/95 backdrop-blur-2xl border-b border-white/15 px-6 py-6 space-y-4 shadow-2xl animate-in slide-in-from-top-4 duration-200">
-          <div className="flex flex-col space-y-2">
-            {navLinks.map((link) => (
+        <div
+          id="mobile-menu"
+          className="md:hidden border-t border-line bg-surface px-5 py-4 shadow-sm"
+        >
+          <nav aria-label="Navigasi mobile" className="flex flex-col gap-1">
+            {NAV_LINKS.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  sound.playClick();
-                }}
-                className="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-200 hover:bg-white/10 hover:text-white transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  activeSection === link.id
+                    ? "text-brand bg-brand-soft"
+                    : "text-ink-soft hover:bg-surface-sunken"
+                }`}
               >
                 {link.name}
               </a>
             ))}
-          </div>
+          </nav>
 
-          <div className="pt-4 border-t border-slate-800 flex flex-col gap-3">
-            <div className="flex items-center justify-between text-xs text-slate-400 font-mono">
-              <span>Status:</span>
-              <span className="text-emerald-400 flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                Available for Work
-              </span>
-            </div>
-
+          <div className="mt-4 pt-4 border-t border-line flex flex-col gap-3">
+            <p className="flex items-center gap-2 text-sm text-ink-muted">
+              <span
+                className="w-2 h-2 rounded-full bg-positive shrink-0"
+                aria-hidden="true"
+              />
+              {PERSONAL_INFO.status}
+            </p>
             <a
               href="#contact"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                sound.playClick();
-              }}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-rose-600 to-red-500 text-white font-bold text-sm shadow-lg shadow-rose-600/30"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-brand hover:bg-brand-strong text-white text-sm font-semibold transition-colors"
             >
-              <span>Hubungi Saya</span>
-              <ArrowUpRight className="w-4 h-4" />
+              Hubungi saya
+              <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
             </a>
           </div>
         </div>

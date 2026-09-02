@@ -1,123 +1,143 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Design tokens — Light Professional
+   Satu aksen (biru navy) + skala netral slate.
+   Semua pasangan warna teks/latar lulus WCAG AA.
+   ============================================================ */
+@theme {
+  /* Teks */
+  --color-ink: #0f172a;        /* judul            — 17.9:1 di atas putih */
+  --color-ink-soft: #334155;   /* isi paragraf     — 10.7:1 */
+  --color-ink-muted: #64748b;  /* keterangan       —  4.8:1 */
+  --color-ink-faint: #94a3b8;  /* dekoratif saja, bukan untuk teks penting */
+
+  /* Permukaan */
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f8fafc;
+  --color-surface-sunken: #f1f5f9;
+
+  /* Garis */
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+
+  /* Aksen */
+  --color-brand: #1d4ed8;      /* 6.3:1 di atas putih, putih 6.3:1 di atasnya */
+  --color-brand-strong: #1e3a8a;
+  --color-brand-soft: #eff6ff;
+  --color-brand-line: #bfdbfe;
+
+  /* Status */
+  --color-positive: #047857;   /* 4.9:1 */
+  --color-positive-soft: #ecfdf5;
+  --color-positive-line: #a7f3d0;
+
+  /* Panel gelap (khusus terminal) */
+  --color-console: #0f172a;
+  --color-console-line: #1e293b;
+}
+
 @layer base {
-  :root {
-    --theme-accent: #4ade80;
-    --theme-accent-soft: #86efac;
-    --theme-secondary: #d1fae5;
-    --theme-glow: rgba(74, 222, 128, 0.42);
-  }
-
-  .theme-loki {
-    --theme-accent: #4ade80;
-    --theme-accent-soft: #86efac;
-    --theme-secondary: #d1fae5;
-    --theme-glow: rgba(74, 222, 128, 0.42);
-  }
-
-  .theme-miles {
-    --theme-accent: #4ade80;
-    --theme-accent-soft: #86efac;
-    --theme-secondary: #d1fae5;
-    --theme-glow: rgba(74, 222, 128, 0.42);
-  }
-
-  .theme-peter {
-    --theme-accent: #4ade80;
-    --theme-accent-soft: #86efac;
-    --theme-secondary: #d1fae5;
-    --theme-glow: rgba(74, 222, 128, 0.42);
-  }
-
-  .theme-gwen {
-    --theme-accent: #4ade80;
-    --theme-accent-soft: #86efac;
-    --theme-secondary: #d1fae5;
-    --theme-glow: rgba(74, 222, 128, 0.42);
-  }
-
-  .theme-2099 {
-    --theme-accent: #4ade80;
-    --theme-accent-soft: #86efac;
-    --theme-secondary: #d1fae5;
-    --theme-glow: rgba(74, 222, 128, 0.42);
-  }
-
   * {
     box-sizing: border-box;
   }
 
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    /* Offset untuk header fixed agar anchor tidak tertutup */
+    scroll-padding-top: 5.5rem;
   }
 
   body {
-    background-color: #030712;
-    color: #f8fafc;
+    background-color: var(--color-surface);
+    color: var(--color-ink-soft);
+    font-size: 1rem;
+    line-height: 1.65;
     overflow-x: hidden;
-    cursor: default;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-ink);
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   a,
   button,
   [role="button"],
-  input,
-  textarea,
-  select {
+  select,
+  summary {
     cursor: pointer;
   }
 
-  /* Custom subtle scrollbar */
+  /* Fokus keyboard yang selalu terlihat — penting untuk aksesibilitas */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background-color: var(--color-brand);
+    color: #ffffff;
+  }
+
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #020617;
+    background: var(--color-surface-subtle);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: var(--color-line-strong);
+    border: 2px solid var(--color-surface-subtle);
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: var(--color-ink-faint);
   }
 }
 
-/* Infinite Ticker Keyframes */
-@keyframes ticker {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
+/* ============================================================
+   Utilitas
+   ============================================================ */
 
-.animate-ticker {
-  animation: ticker 25s linear infinite;
-}
-
-.animate-ticker:hover {
-  animation-play-state: paused;
-}
-
-/* Hide scrollbar utility */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-/* Glowing Neon Utilities */
-.neon-glow-accent {
-  box-shadow: 0 0 25px var(--theme-glow);
-}
+/* Hormati preferensi pengguna yang mengurangi animasi */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

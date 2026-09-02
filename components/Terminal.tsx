@@ -1,34 +1,42 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Terminal as TerminalIcon, Sparkles, CornerDownLeft, RotateCcw, Volume2, VolumeX } from "lucide-react";
-import { PERSONAL_INFO, PROJECTS, SKILLS } from "@/data/portfolioData";
-import { sound } from "@/lib/soundEffects";
+import { TerminalSquare, CornerDownLeft, RotateCcw } from "lucide-react";
+import {
+  PERSONAL_INFO,
+  PROJECTS,
+  SKILLS,
+  TIMELINE,
+} from "@/data/portfolioData";
 
 interface CommandLog {
   id: string;
   type: "input" | "output" | "system" | "error";
-  text: string | React.ReactNode;
+  text: React.ReactNode;
 }
 
-export default function Terminal({
-  soundActive,
-  onToggleSound,
-}: {
-  soundActive: boolean;
-  onToggleSound: () => void;
-}) {
-  const [inputVal, setInputVal] = useState("");
-  const [history, setHistory] = useState<CommandLog[]>([
-    {
-      id: "welcome-1",
-      type: "system",
-      text: "Ketik command atau klik tombol di bawah untuk mengeksplorasi profil Alfi Candra Dinata.",
-    },
-  ]);
+const WELCOME: CommandLog = {
+  id: "welcome",
+  type: "system",
+  text: "Ketik perintah, atau pilih salah satu tombol di bawah, untuk menelusuri profil.",
+};
 
+const QUICK_COMMANDS = [
+  "help",
+  "whoami",
+  "skills",
+  "projects",
+  "experience",
+  "contact",
+  "clear",
+];
+
+export default function Terminal() {
+  const [inputVal, setInputVal] = useState("");
+  const [history, setHistory] = useState<CommandLog[]>([WELCOME]);
   const [commandIndex, setCommandIndex] = useState(-1);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
+
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -38,46 +46,44 @@ export default function Terminal({
     }
   }, [history]);
 
-  const quickCommands = ["help", "whoami", "skills", "projects", "contact", "loki", "clear"];
-
   const handleCommand = (cmd: string) => {
     const raw = cmd.trim();
     if (!raw) return;
 
-    sound.playKey();
-
-    const newLogId = `${Date.now()}-${Math.random()}`;
-    const userLog: CommandLog = {
-      id: `${newLogId}-in`,
-      type: "input",
-      text: raw,
-    };
+    const logId = `${Date.now()}-${Math.random()}`;
+    const userLog: CommandLog = { id: `${logId}-in`, type: "input", text: raw };
 
     setCommandHistory((prev) => [...prev, raw]);
     setCommandIndex(-1);
 
-    const lower = raw.toLowerCase();
     let resultLog: CommandLog;
 
-    switch (lower) {
+    switch (raw.toLowerCase()) {
       case "help":
         resultLog = {
-          id: `${newLogId}-out`,
+          id: `${logId}-out`,
           type: "output",
           text: (
-            <div className="space-y-1 text-xs sm:text-sm">
-              <p className="text-emerald-400 font-bold">Daftar Perintah Tersedia:</p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 pt-1 text-slate-300">
-                <span><b className="text-emerald-300">whoami</b> : Profil & identitas</span>
-                <span><b className="text-emerald-300">skills</b> : Ringkasan tech stack</span>
-                <span><b className="text-emerald-300">projects</b> : Daftar proyek unggulan</span>
-                <span><b className="text-emerald-300">contact</b> : Info kontak & media</span>
-                <span><b className="text-emerald-300">stack</b> : JSON format tech stack</span>
-                <span><b className="text-emerald-300">status</b> : Status skripsi & kerja</span>
-                <span><b className="text-emerald-300">loki</b> : Easter egg magic aura</span>
-                <span><b className="text-emerald-300">clear</b> : Bersihkan layar terminal</span>
-                <span><b className="text-emerald-300">date</b> : Waktu lokal WIB saat ini</span>
-              </div>
+            <div>
+              <p className="text-slate-200 font-semibold">Perintah tersedia</p>
+              <dl className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
+                {[
+                  ["whoami", "Profil singkat"],
+                  ["skills", "Daftar keahlian teknis"],
+                  ["projects", "Proyek yang dikerjakan"],
+                  ["experience", "Riwayat pengalaman"],
+                  ["contact", "Informasi kontak"],
+                  ["stack", "Tech stack format JSON"],
+                  ["status", "Ketersediaan saat ini"],
+                  ["date", "Waktu lokal WIB"],
+                  ["clear", "Bersihkan layar"],
+                ].map(([name, desc]) => (
+                  <div key={name} className="flex gap-2">
+                    <dt className="text-sky-300 shrink-0 w-24">{name}</dt>
+                    <dd className="text-slate-400">{desc}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           ),
         };
@@ -86,14 +92,18 @@ export default function Terminal({
       case "whoami":
       case "about":
         resultLog = {
-          id: `${newLogId}-out`,
+          id: `${logId}-out`,
           type: "output",
           text: (
-            <div className="space-y-1.5 text-xs sm:text-sm">
-              <p className="text-emerald-400 font-semibold">{PERSONAL_INFO.name} ({PERSONAL_INFO.handle})</p>
-              <p className="text-slate-300">{PERSONAL_INFO.role}</p>
+            <div className="space-y-1.5">
+              <p className="text-slate-100 font-semibold">
+                {PERSONAL_INFO.name}
+              </p>
+              <p className="text-sky-300">{PERSONAL_INFO.role}</p>
               <p className="text-slate-400">{PERSONAL_INFO.bio}</p>
-              <p className="text-xs text-amber-300">📍 Lokasi: {PERSONAL_INFO.location} | 🎓 {PERSONAL_INFO.skripsiStatus}</p>
+              <p className="text-slate-400">
+                Lokasi: {PERSONAL_INFO.location} — {PERSONAL_INFO.skripsiStatus}
+              </p>
             </div>
           ),
         };
@@ -101,21 +111,20 @@ export default function Terminal({
 
       case "skills":
         resultLog = {
-          id: `${newLogId}-out`,
+          id: `${logId}-out`,
           type: "output",
           text: (
-            <div className="space-y-1.5 text-xs sm:text-sm">
-              <p className="text-cyan-400 font-bold">⚡ Core Technologies & Frameworks:</p>
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                {SKILLS.map((s) => (
-                  <span
-                    key={s.name}
-                    className="px-2 py-0.5 rounded text-xs bg-slate-800/80 border border-slate-700 text-slate-200"
-                  >
-                    {s.name} ({s.level}%)
+            <div className="space-y-1">
+              <p className="text-slate-200 font-semibold">Keahlian teknis</p>
+              {SKILLS.map((skill) => (
+                <div key={skill.name} className="flex gap-2 text-slate-400">
+                  <span className="text-sky-300 shrink-0">•</span>
+                  <span>
+                    <span className="text-slate-200">{skill.name}</span>{" "}
+                    — {skill.experience}
                   </span>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           ),
         };
@@ -123,16 +132,44 @@ export default function Terminal({
 
       case "projects":
         resultLog = {
-          id: `${newLogId}-out`,
+          id: `${logId}-out`,
           type: "output",
           text: (
-            <div className="space-y-2 text-xs sm:text-sm">
-              <p className="text-rose-400 font-bold">🚀 Featured Projects:</p>
-              {PROJECTS.map((p, idx) => (
-                <div key={p.id} className="border-l-2 border-rose-500/50 pl-2">
-                  <p className="font-semibold text-slate-100">{idx + 1}. {p.title} ({p.year})</p>
-                  <p className="text-slate-400 text-xs">{p.tagline}</p>
-                  <p className="text-cyan-400/90 text-xs">Tech: {p.tags.join(", ")}</p>
+            <div className="space-y-2.5">
+              <p className="text-slate-200 font-semibold">Proyek</p>
+              {PROJECTS.map((project, idx) => (
+                <div
+                  key={project.id}
+                  className="border-l-2 border-slate-700 pl-3"
+                >
+                  <p className="text-slate-100">
+                    {idx + 1}. {project.title} ({project.year})
+                  </p>
+                  <p className="text-slate-400">{project.tagline}</p>
+                  <p className="text-sky-300">{project.tags.join(", ")}</p>
+                </div>
+              ))}
+            </div>
+          ),
+        };
+        break;
+
+      case "experience":
+        resultLog = {
+          id: `${logId}-out`,
+          type: "output",
+          text: (
+            <div className="space-y-2.5">
+              <p className="text-slate-200 font-semibold">Pengalaman</p>
+              {TIMELINE.map((item) => (
+                <div
+                  key={`${item.period}-${item.role}`}
+                  className="border-l-2 border-slate-700 pl-3"
+                >
+                  <p className="text-slate-100">{item.role}</p>
+                  <p className="text-slate-400">
+                    {item.company} — {item.period}
+                  </p>
                 </div>
               ))}
             </div>
@@ -142,14 +179,42 @@ export default function Terminal({
 
       case "contact":
         resultLog = {
-          id: `${newLogId}-out`,
+          id: `${logId}-out`,
           type: "output",
           text: (
-            <div className="space-y-1 text-xs sm:text-sm">
-              <p className="text-amber-400 font-bold">📬 Hubungi Alfi Candra:</p>
-              <p className="text-slate-200">Email: <a href={`mailto:${PERSONAL_INFO.email}`} className="text-cyan-400 underline">{PERSONAL_INFO.email}</a></p>
-              <p className="text-slate-200">GitHub: <a href={PERSONAL_INFO.socials.github} target="_blank" rel="noreferrer" className="text-cyan-400 underline">github.com/alficandradinata</a></p>
-              <p className="text-slate-200">LinkedIn: <a href={PERSONAL_INFO.socials.linkedin} target="_blank" rel="noreferrer" className="text-cyan-400 underline">linkedin.com/in/alficandradinata</a></p>
+            <div className="space-y-1 text-slate-400">
+              <p className="text-slate-200 font-semibold">Kontak</p>
+              <p>
+                Email:{" "}
+                <a
+                  href={`mailto:${PERSONAL_INFO.email}`}
+                  className="text-sky-300 underline underline-offset-2"
+                >
+                  {PERSONAL_INFO.email}
+                </a>
+              </p>
+              <p>
+                GitHub:{" "}
+                <a
+                  href={PERSONAL_INFO.socials.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sky-300 underline underline-offset-2"
+                >
+                  github.com/alficandradinata
+                </a>
+              </p>
+              <p>
+                LinkedIn:{" "}
+                <a
+                  href={PERSONAL_INFO.socials.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sky-300 underline underline-offset-2"
+                >
+                  linkedin.com/in/alficandradinata
+                </a>
+              </p>
             </div>
           ),
         };
@@ -158,17 +223,16 @@ export default function Terminal({
       case "stack":
       case "cat stack.json":
         resultLog = {
-          id: `${newLogId}-out`,
+          id: `${logId}-out`,
           type: "output",
           text: (
-            <pre className="text-xs text-amber-300 font-mono bg-black/40 p-2 rounded overflow-x-auto">
-{`{
-  "developer": "Alfi Candra Dinata",
-  "frontend": ["React.js", "Next.js 16", "Tailwind CSS v4", "TypeScript"],
-  "mobile": ["React Native", "Expo"],
-  "backend": ["Python", "FastAPI", "Node.js", "MongoDB", "PostgreSQL"],
-  "data_science": ["Pandas", "Streamlit", "Plotly"],
-  "status": "Writing skripsi & shipping digital products 🚀"
+            <pre className="text-sky-200 overflow-x-auto">
+              {`{
+  "frontend": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+  "mobile":   ["React Native", "Expo"],
+  "backend":  ["Python", "FastAPI", "Node.js"],
+  "database": ["MongoDB", "PostgreSQL"],
+  "data":     ["Pandas", "Streamlit", "Plotly"]
 }`}
             </pre>
           ),
@@ -177,32 +241,22 @@ export default function Terminal({
 
       case "status":
         resultLog = {
-          id: `${newLogId}-out`,
+          id: `${logId}-out`,
           type: "output",
           text: (
-            <div className="text-xs sm:text-sm text-emerald-300 space-y-1">
-              <p>🟢 Status: <b>{PERSONAL_INFO.status}</b></p>
-              <p>🎓 Skripsi: Sedang menyelesaikan tugas akhir Software Engineering</p>
-              <p>💼 Open to: Full-time / Freelance / Collab projects</p>
-            </div>
-          ),
-        };
-        break;
-
-      case "loki":
-      case "magic":
-        sound.playWebShoot();
-        resultLog = {
-          id: `${newLogId}-out`,
-          type: "output",
-          text: (
-            <div className="text-emerald-300 font-mono text-[11px] leading-tight">
-              <pre>
-{`   .-"""-.     "I am not a monster.
-  /  .-.  \\   I am a strategist."
-  |  | |  |    ~ Loki Laufeyson
-  \\  '-'  /    ✨ Magic awakened`}
-              </pre>
+            <div className="space-y-1 text-slate-400">
+              <p>
+                <span className="text-slate-200">Ketersediaan:</span>{" "}
+                {PERSONAL_INFO.status}
+              </p>
+              <p>
+                <span className="text-slate-200">Studi:</span>{" "}
+                {PERSONAL_INFO.skripsiStatus}
+              </p>
+              <p>
+                <span className="text-slate-200">Terbuka untuk:</span> penuh
+                waktu, lepas, dan kolaborasi
+              </p>
             </div>
           ),
         };
@@ -211,11 +265,14 @@ export default function Terminal({
       case "date":
       case "time":
         resultLog = {
-          id: `${newLogId}-out`,
+          id: `${logId}-out`,
           type: "output",
           text: (
-            <p className="text-cyan-300 text-xs">
-              🕒 Waktu Sekarang: {new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })} WIB (UTC+7)
+            <p className="text-slate-400">
+              {new Date().toLocaleString("id-ID", {
+                timeZone: "Asia/Jakarta",
+              })}{" "}
+              WIB (UTC+7)
             </p>
           ),
         };
@@ -229,11 +286,12 @@ export default function Terminal({
 
       default:
         resultLog = {
-          id: `${newLogId}-err`,
+          id: `${logId}-err`,
           type: "error",
           text: (
-            <p className="text-red-400 text-xs">
-              Command tidak dikenali: &quot;{raw}&quot;. Ketik <span className="text-cyan-300 font-bold">help</span> untuk daftar perintah.
+            <p className="text-rose-300">
+              Perintah tidak dikenali: {raw}. Ketik{" "}
+              <span className="text-sky-300">help</span> untuk daftar perintah.
             </p>
           ),
         };
@@ -251,7 +309,10 @@ export default function Terminal({
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       if (commandHistory.length === 0) return;
-      const nextIdx = commandIndex === -1 ? commandHistory.length - 1 : Math.max(0, commandIndex - 1);
+      const nextIdx =
+        commandIndex === -1
+          ? commandHistory.length - 1
+          : Math.max(0, commandIndex - 1);
       setCommandIndex(nextIdx);
       setInputVal(commandHistory[nextIdx]);
     } else if (e.key === "ArrowDown") {
@@ -269,117 +330,96 @@ export default function Terminal({
   };
 
   return (
-    <div className="relative group w-full max-w-xl mx-auto rounded-2xl overflow-hidden border border-emerald-500/20 bg-slate-950/80 backdrop-blur-xl shadow-2xl shadow-emerald-950/30 transition-all duration-300 hover:border-emerald-500/40">
-      {/* Top ambient glow line */}
-      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-emerald-500 via-lime-400 to-cyan-400 opacity-80" />
+    <div className="w-full rounded-xl overflow-hidden border border-line bg-console shadow-sm">
+      {/* Bilah judul */}
+      <div className="flex items-center justify-between gap-3 px-4 py-2.5 bg-console-line border-b border-slate-700">
+        <p className="flex items-center gap-2 text-sm font-medium text-slate-300">
+          <TerminalSquare
+            className="w-4 h-4 text-slate-400 shrink-0"
+            aria-hidden="true"
+          />
+          Profil interaktif
+        </p>
 
-      {/* Terminal Titlebar */}
-      <div className="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-800/80 text-xs select-none">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-full bg-rose-500 shadow-sm shadow-rose-500/50 cursor-pointer hover:opacity-80" onClick={() => setHistory([])} title="Clear Terminal" />
-            <span className="w-3 h-3 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/50 cursor-pointer hover:opacity-80" title="Loki Magic" onClick={() => handleCommand("loki")} />
-            <span className="w-3 h-3 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400/50" title="Active" />
-          </div>
-          <span className="font-mono text-slate-400 font-medium ml-2 flex items-center gap-1.5">
-            <TerminalIcon className="w-3.5 h-3.5 text-emerald-400" />
-            <span>alfi candra dinata:~</span>
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          {/* Sound Toggle */}
-          <button
-            onClick={onToggleSound}
-            className={`p-1.5 rounded-lg border transition-all ${
-              soundActive
-                ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-300"
-                : "bg-slate-800/50 border-slate-700/50 text-slate-400 hover:text-slate-200"
-            }`}
-            title={soundActive ? "Audio Aktif (Klik untuk mute)" : "Audio Mute (Klik untuk mengaktifkan)"}
-            aria-label="Sound Toggle"
-          >
-            {soundActive ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
-          </button>
-
-          <button
-            onClick={() => setHistory([])}
-            className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-slate-200 px-2 py-1 rounded bg-slate-800/60 border border-slate-700/50 hover:bg-slate-700/50 transition-colors"
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span>Clear</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => setHistory([WELCOME])}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-slate-300 bg-slate-700/60 hover:bg-slate-700 transition-colors"
+        >
+          <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
+          Bersihkan
+        </button>
       </div>
 
-      {/* Terminal Body */}
+      {/* Isi terminal */}
       <div
         ref={scrollRef}
         onClick={() => inputRef.current?.focus()}
-        className="p-4 sm:p-5 h-72 sm:h-80 overflow-y-auto font-mono text-xs sm:text-sm space-y-2.5 text-slate-200 scrollbar-thin scrollbar-thumb-slate-800"
+        role="log"
+        aria-live="polite"
+        aria-label="Keluaran terminal"
+        className="p-4 h-80 overflow-y-auto font-mono text-sm leading-relaxed space-y-3 text-slate-300"
       >
         {history.map((log) => (
-          <div key={log.id} className="leading-relaxed">
+          <div key={log.id}>
             {log.type === "input" && (
-              <div className="flex items-center gap-2 text-rose-400">
-                <span className="text-cyan-400 font-bold">$</span>
-                <span className="text-slate-100 font-semibold">{log.text}</span>
-              </div>
+              <p className="flex items-start gap-2">
+                <span className="text-sky-400 shrink-0" aria-hidden="true">
+                  $
+                </span>
+                <span className="text-slate-100">{log.text}</span>
+              </p>
             )}
-            {log.type === "output" && (
-              <div className="pl-4 text-slate-300">{log.text}</div>
-            )}
+            {log.type === "output" && <div className="pl-4">{log.text}</div>}
             {log.type === "system" && (
-              <div className="text-amber-400/90 text-xs italic">{log.text}</div>
+              <p className="text-slate-500">{log.text}</p>
             )}
-            {log.type === "error" && (
-              <div className="pl-4">{log.text}</div>
-            )}
+            {log.type === "error" && <div className="pl-4">{log.text}</div>}
           </div>
         ))}
 
-        {/* Live Input Line */}
-        <div className="flex items-center gap-2 pt-1">
-          <span className="text-cyan-400 font-bold">$</span>
+        {/* Baris input */}
+        <div className="flex items-center gap-2">
+          <span className="text-sky-400 shrink-0" aria-hidden="true">
+            $
+          </span>
           <input
             ref={inputRef}
             type="text"
             value={inputVal}
-            onChange={(e) => {
-              setInputVal(e.target.value);
-              sound.playKey();
-            }}
+            onChange={(e) => setInputVal(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="ketik perintah di sini (contoh: help, skills)..."
-            className="flex-1 bg-transparent border-none outline-none text-slate-100 placeholder:text-slate-600 font-mono text-xs sm:text-sm"
+            placeholder="ketik: help"
+            aria-label="Masukkan perintah"
+            autoComplete="off"
+            spellCheck={false}
+            className="flex-1 min-w-0 bg-transparent border-none outline-none text-slate-100 placeholder:text-slate-600 font-mono text-sm"
           />
           <button
+            type="button"
             onClick={() => handleCommand(inputVal)}
             disabled={!inputVal.trim()}
-            className="text-slate-500 hover:text-cyan-400 disabled:opacity-30 transition-colors p-1"
+            aria-label="Jalankan perintah"
+            className="p-1 rounded text-slate-500 hover:text-sky-300 disabled:opacity-30 disabled:hover:text-slate-500 transition-colors"
           >
-            <CornerDownLeft className="w-3.5 h-3.5" />
+            <CornerDownLeft className="w-4 h-4" aria-hidden="true" />
           </button>
         </div>
       </div>
 
-      {/* Quick Action Command Badges */}
-      <div className="p-3 bg-slate-900/90 border-t border-slate-800/80 flex items-center gap-2 overflow-x-auto no-scrollbar">
-        <span className="text-[11px] text-slate-500 flex items-center gap-1 shrink-0">
-          <Sparkles className="w-3 h-3 text-amber-400" /> Coba:
-        </span>
-        <div className="flex items-center gap-1.5 flex-nowrap">
-          {quickCommands.map((cmd) => (
-            <button
-              key={cmd}
-              onClick={() => handleCommand(cmd)}
-              onMouseEnter={() => sound.playHover()}
-              className="px-2 py-0.5 rounded-full text-[11px] font-mono bg-slate-800/90 hover:bg-emerald-500/20 text-slate-300 hover:text-emerald-300 border border-slate-700/60 hover:border-emerald-500/40 transition-all cursor-pointer shrink-0 active:scale-95"
-            >
-              {cmd}
-            </button>
-          ))}
-        </div>
+      {/* Pintasan perintah */}
+      <div className="px-4 py-3 bg-console-line border-t border-slate-700 flex items-center gap-2 overflow-x-auto no-scrollbar">
+        <span className="text-xs text-slate-500 shrink-0">Coba:</span>
+        {QUICK_COMMANDS.map((cmd) => (
+          <button
+            key={cmd}
+            type="button"
+            onClick={() => handleCommand(cmd)}
+            className="px-2.5 py-1 rounded-md text-xs font-mono text-slate-300 bg-slate-700/60 hover:bg-slate-600 transition-colors shrink-0"
+          >
+            {cmd}
+          </button>
+        ))}
       </div>
     </div>
   );

@@ -12,11 +12,6 @@ export interface Project {
   highlights: string[];
   demoUrl?: string;
   githubUrl?: string;
-  colorScheme: {
-    accent: string;
-    gradient: string;
-    badge: string;
-  };
   visualType: "orbit" | "code" | "mobile" | "analytics";
 }
 
@@ -27,7 +22,6 @@ export interface Skill {
   icon: string;
   experience: string;
   description: string;
-  color: string;
 }
 
 export interface TimelineItem {
@@ -42,30 +36,39 @@ export interface TimelineItem {
   type: "work" | "education" | "project";
 }
 
+/** Label kategori proyek untuk ditampilkan di antarmuka. */
+export const CATEGORY_LABELS: Record<Project["category"], string> = {
+  web: "Aplikasi Web",
+  mobile: "Aplikasi Mobile",
+  data: "Data & Analitik",
+  system: "Sistem",
+};
+
 export const PERSONAL_INFO = {
   name: "Alfi Candra Dinata",
   nickname: "Alfi",
   handle: "alfi_candra",
-  role: "Full-Stack Software Engineer & Builder",
-  subRole: "Web Architect • Mobile Dev • Python & Data Explorer",
+  role: "Full-Stack Software Engineer",
+  subRole: "Pengembangan Web • Aplikasi Mobile • Analitik Data",
   location: "Pekanbaru, Indonesia",
   timezone: "Asia/Jakarta (WIB • UTC+7)",
   email: "alfichandra2003@gmail.com",
   phone: "+62 823-2137-6752",
-  status: "Available for Work & Collaborations",
-  skripsiStatus: "Final Year Student & Software Engineer",
-  bio: "Seorang software engineer dan builder yang berfokus menciptakan website modern berkinerja tinggi, aplikasi mobile responsif, serta sistem berbasis data interaktif. Menggabungkan estetika visual high-tech dengan arsitektur kode yang bersih dan scalable.",
+  status: "Terbuka untuk pekerjaan dan kolaborasi",
+  skripsiStatus: "Mahasiswa tingkat akhir & software engineer",
+  bio: "Software engineer yang berfokus membangun aplikasi web berkinerja tinggi, aplikasi mobile lintas platform, dan sistem berbasis data. Mengutamakan arsitektur kode yang bersih, terukur, dan mudah dirawat dalam jangka panjang.",
   stats: [
-    { label: "Tahun Pengalaman", value: "3+", suffix: "" },
-    { label: "Proyek Selesai", value: "15+", suffix: "" },
-    { label: "Kepuasan Klien / User", value: "100%", suffix: "" },
-    { label: "Code Commits", value: "650+", suffix: "" },
+    { label: "Tahun pengalaman", value: "3+", suffix: "" },
+    { label: "Proyek diselesaikan", value: "15+", suffix: "" },
+    { label: "Bidang keahlian", value: "3", suffix: "" },
+    { label: "Kontribusi kode", value: "650+", suffix: "" },
   ],
   socials: {
     github: "https://github.com/alficandradinata",
     linkedin: "https://linkedin.com/in/alficandradinata",
     instagram: "https://www.instagram.com/alficandra_20",
-    whatsapp: "https://wa.me/6282321376752?text=Halo%20Alfi,%20saya%20tertarik%20bekerja%20sama%20denganmu!",
+    whatsapp:
+      "https://wa.me/6282321376752?text=Halo%20Alfi,%20saya%20tertarik%20bekerja%20sama%20denganmu!",
     email: "mailto:alfichandra2003@gmail.com",
   },
 };
@@ -75,221 +78,236 @@ export const PROJECTS: Project[] = [
     id: "sales-inventory",
     title: "Sales & Inventory Tracking System",
     category: "web",
-    tagline: "Platform Manajemen Stok & Kasir Cerdas dengan Integrasi Barcode Scanner",
-    description: "Sistem inventaris dan penjualan modern dengan pemindaian barcode instan, manajemen multi-outlet, dan analitik laporan laba-rugi realtime.",
-    longDescription: "Aplikasi enterprise web-based yang dirancang khusus untuk mempermudah operasional retail dan gudang. Mendukung pencatatan transaksi kasir kilat, pelacakan stok otomatis dengan barcode scanning via camera/hardware scanner, manajemen pemasok, peringatan stok menipis, serta ekspor laporan keuangan otomatis.",
+    tagline: "Platform manajemen stok dan kasir dengan integrasi barcode scanner",
+    description:
+      "Sistem inventaris dan penjualan dengan pemindaian barcode, manajemen multi-outlet, serta laporan laba-rugi real-time.",
+    longDescription:
+      "Aplikasi web untuk operasional retail dan gudang. Mendukung pencatatan transaksi kasir, pelacakan stok otomatis melalui barcode scanning (kamera maupun scanner USB), manajemen pemasok, peringatan stok menipis, serta ekspor laporan keuangan.",
     year: "2026",
     featured: true,
-    tags: ["React JS", "Next.js", "Node.js", "MongoDB", "Barcode API", "TailwindCSS"],
-    metrics: "+60% Efisiensi Transaksi",
+    tags: ["React", "Next.js", "Node.js", "MongoDB", "Barcode API", "Tailwind CSS"],
+    metrics: "Efisiensi transaksi +60%",
     highlights: [
-      "Pemindaian barcode real-time dengan kamera atau scanner USB",
-      "Laporan penjualan harian, mingguan, dan bulanan interaktif",
-      "Sistem role access (Admin, Kasir, Manager Gudang)",
-      "Pencetakan struk otomatis (Thermal Printer Support)"
+      "Pemindaian barcode real-time via kamera atau scanner USB",
+      "Laporan penjualan harian, mingguan, dan bulanan",
+      "Kontrol akses berbasis peran (admin, kasir, manajer gudang)",
+      "Pencetakan struk otomatis dengan dukungan thermal printer",
     ],
     demoUrl: "https://sales-system-preview.demo",
     githubUrl: "https://github.com/alficandradinata/sales-inventory-system",
-    colorScheme: {
-      accent: "#e13535",
-      gradient: "from-red-600 via-rose-500 to-amber-500",
-      badge: "bg-red-500/20 text-red-400 border-red-500/30",
-    },
     visualType: "orbit",
   },
   {
     id: "pln-doc-mgmt",
     title: "PLN Simpang 3 Document System",
     category: "mobile",
-    tagline: "Aplikasi Mobile Manajemen Dokumen & Arsip Operasional PLN",
-    description: "Aplikasi mobile React Native untuk pengarsipan digital, verifikasi berkas lapangan, dan tracking approval dokumen instansi PLN.",
-    longDescription: "Solusi digitalisasi dokumen untuk kantor PLN Simpang 3 yang menggantikan sistem arsip manual. Petugas lapangan dapat mengambil foto dokumen, memberi watermarking GPS/Waktu otomatis, mengunggah ke cloud storage, serta memantau status persetujuan pimpinan secara real-time.",
+    tagline: "Aplikasi mobile untuk manajemen dokumen dan arsip operasional",
+    description:
+      "Aplikasi React Native untuk pengarsipan digital, verifikasi berkas lapangan, dan pelacakan persetujuan dokumen.",
+    longDescription:
+      "Solusi digitalisasi dokumen untuk kantor PLN Simpang 3 yang menggantikan sistem arsip manual. Petugas lapangan dapat memindai dokumen, menambahkan watermark lokasi dan waktu secara otomatis, mengunggah ke penyimpanan cloud, serta memantau status persetujuan secara real-time.",
     year: "2025",
     featured: true,
-    tags: ["React Native", "Expo", "FastAPI", "PostgreSQL", "Cloud Storage", "JWT Auth"],
-    metrics: "1,200+ Dokumen Terkelola",
+    tags: ["React Native", "Expo", "FastAPI", "PostgreSQL", "Cloud Storage", "JWT"],
+    metrics: "1.200+ dokumen terkelola",
     highlights: [
-      "Pemindaian dan kompresi dokumen PDF & gambar otomatis",
-      "Pelacakan riwayat dokumen dengan timeline persetujuan digital",
-      "Notifikasi push status pengajuan berkas",
-      "Mode offline dengan sinkronisasi otomatis saat online"
+      "Pemindaian dan kompresi dokumen PDF serta gambar",
+      "Riwayat dokumen dengan lini masa persetujuan digital",
+      "Notifikasi push untuk status pengajuan berkas",
+      "Mode offline dengan sinkronisasi otomatis saat kembali online",
     ],
     demoUrl: "https://pln-doc-preview.demo",
     githubUrl: "https://github.com/alficandradinata/pln-doc-management",
-    colorScheme: {
-      accent: "#2f6eea",
-      gradient: "from-blue-600 via-cyan-500 to-teal-400",
-      badge: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-    },
     visualType: "mobile",
   },
   {
     id: "covid-analytics",
     title: "Data Analytics & COVID-19 Insight",
     category: "data",
-    tagline: "Dashboard Analisis Tren & Visualisasi Prediksi Data Interaktif",
-    description: "Dashboard eksplorasi data komprehensif menggunakan Python, Pandas, dan Streamlit dengan visualisasi spasial interaktif.",
-    longDescription: "Platform analitik data epidemiologi dan penjualan yang menyajikan analisis statistik mendalam, peramalan tren menggunakan regresi, pengelompokan wilayah berisiko tinggi (clustering), dan grafik distribusi dinamis.",
+    tagline: "Dasbor analisis tren dan visualisasi data interaktif",
+    description:
+      "Dasbor eksplorasi data menggunakan Python, Pandas, dan Streamlit dengan visualisasi spasial interaktif.",
+    longDescription:
+      "Platform analitik yang menyajikan analisis statistik, peramalan tren menggunakan regresi, pengelompokan wilayah berisiko tinggi, serta grafik distribusi dinamis yang dapat difilter secara langsung.",
     year: "2026",
     featured: true,
-    tags: ["Python", "Streamlit", "Pandas", "Plotly", "Scikit-Learn", "Data Viz"],
-    metrics: "98% Akurasi Parsing Data",
+    tags: ["Python", "Streamlit", "Pandas", "Plotly", "scikit-learn"],
+    metrics: "Akurasi parsing data 98%",
     highlights: [
-      "Visualisasi peta spasial interaktif dengan heatmaps",
-      "Filter rentang tanggal, wilayah, dan kategori metrik dinamis",
-      "Model peramalan tren sederhana berbasis time-series",
-      "Ekspor visualisasi ke format PDF dan PNG resolusi tinggi"
+      "Visualisasi peta spasial interaktif dengan heatmap",
+      "Filter rentang tanggal, wilayah, dan metrik secara dinamis",
+      "Model peramalan tren berbasis time-series",
+      "Ekspor visualisasi ke format PDF dan PNG resolusi tinggi",
     ],
     demoUrl: "https://data-analytics-preview.demo",
     githubUrl: "https://github.com/alficandradinata/data-exploration-analytics",
-    colorScheme: {
-      accent: "#00f0ff",
-      gradient: "from-cyan-500 via-sky-500 to-indigo-600",
-      badge: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
-    },
     visualType: "analytics",
   },
   {
-    id: "smart-portfolio",
-    title: "Loki Magic Interactive",
+    id: "personal-portfolio",
+    title: "Portofolio Pribadi",
     category: "web",
-    tagline: "Portofolio cyberpunk bernafas sihir Loki dengan terminal interaktif dan background mistik",
-    description: "Portfolio web interaktif dengan tema Loki, terminal emulator terintegrasi, dan efek canvas yang lebih halus dan ambient.",
-    longDescription: "Didesain dengan perhatian pada pengalaman pengguna, micro-interactions yang elegan, dan visual eksperimental dengan sentuhan sihir Asgardian yang modern.",
+    tagline: "Situs profil satu halaman dengan fokus pada keterbacaan dan performa",
+    description:
+      "Portofolio yang dibangun dengan Next.js App Router, sistem token warna terpusat, dan terminal interaktif untuk menelusuri profil.",
+    longDescription:
+      "Situs ini dirancang dengan prinsip yang sama seperti proyek klien: hierarki tipografi yang jelas, kontras warna yang memenuhi standar aksesibilitas WCAG AA, serta komponen yang seluruhnya bersumber dari satu berkas data. Interaksi dibuat seperlunya agar isi tetap menjadi fokus utama.",
     year: "2026",
     featured: false,
-    tags: ["Next.js", "React", "TailwindCSS v4", "Canvas API", "Web Audio", "TypeScript"],
-    metrics: "100/100 Lighthouse Perf",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS v4"],
+    metrics: "Kontras teks lulus WCAG AA",
     highlights: [
-      "Interactive Developer Terminal dengan custom commands",
-      "Ambient magic particle background",
-      "Loki-inspired green theme system",
-      "Sound effects synth yang dapat dinyalakan/dimatikan"
+      "Terminal interaktif untuk menelusuri profil lewat perintah",
+      "Sistem token desain terpusat pada satu berkas CSS",
+      "Konten sepenuhnya dikelola dari satu sumber data",
+      "Mendukung preferensi pengurangan animasi dan navigasi keyboard",
     ],
     demoUrl: "https://alficandra.dev",
     githubUrl: "https://github.com/alficandradinata/alfi-portofilio",
-    colorScheme: {
-      accent: "#4ade80",
-      gradient: "from-emerald-500 via-green-400 to-lime-300",
-      badge: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-    },
     visualType: "code",
-  }
+  },
 ];
 
 export const SKILLS: Skill[] = [
   // Frontend
-  { name: "React JS / Next.js", category: "frontend", level: 92, icon: "Code2", experience: "3 tahun", description: "SSR, Server Components, Hooks, State Management & Modern UI Architecture", color: "#61dafb" },
-  { name: "TypeScript / JavaScript", category: "frontend", level: 88, icon: "Terminal", experience: "3 tahun", description: "Type safety, ESNext, Asynchronous Programming, clean code principles", color: "#3178c6" },
-  { name: "Tailwind CSS & Modern UI", category: "frontend", level: 95, icon: "Palette", experience: "2.5 tahun", description: "Responsive layouts, micro-animations, glassmorphism & design systems", color: "#38bdf8" },
-  
-  // Mobile
-  { name: "React Native / Expo", category: "mobile", level: 85, icon: "Smartphone", experience: "2 tahun", description: "Cross-platform mobile apps for Android & iOS with native hardware APIs", color: "#60a5fa" },
+  {
+    name: "React & Next.js",
+    category: "frontend",
+    level: 92,
+    icon: "Code2",
+    experience: "3 tahun",
+    description:
+      "Server Components, rendering sisi server, hooks, dan manajemen state aplikasi berskala besar.",
+  },
+  {
+    name: "TypeScript & JavaScript",
+    category: "frontend",
+    level: 88,
+    icon: "Terminal",
+    experience: "3 tahun",
+    description:
+      "Type safety, ECMAScript modern, pemrograman asinkron, dan penerapan prinsip clean code.",
+  },
+  {
+    name: "Tailwind CSS & UI Modern",
+    category: "frontend",
+    level: 95,
+    icon: "Palette",
+    experience: "2,5 tahun",
+    description:
+      "Tata letak responsif, sistem desain, aksesibilitas, dan konsistensi antarmuka.",
+  },
 
-  // Backend & DB
-  { name: "Python & FastAPI", category: "backend", level: 86, icon: "Server", experience: "2.5 tahun", description: "RESTful API development, data pipelines, backend services & automation", color: "#3776ab" },
-  { name: "MongoDB & PostgreSQL", category: "backend", level: 82, icon: "Database", experience: "2 tahun", description: "Schema design, relational/non-relational queries, indexing, and data modeling", color: "#47a248" },
-  
+  // Mobile
+  {
+    name: "React Native & Expo",
+    category: "mobile",
+    level: 85,
+    icon: "Smartphone",
+    experience: "2 tahun",
+    description:
+      "Aplikasi lintas platform untuk Android dan iOS, termasuk integrasi API perangkat keras.",
+  },
+
+  // Backend & basis data
+  {
+    name: "Python & FastAPI",
+    category: "backend",
+    level: 86,
+    icon: "Server",
+    experience: "2,5 tahun",
+    description:
+      "Pengembangan REST API, pipeline data, layanan backend, dan otomasi proses.",
+  },
+  {
+    name: "MongoDB & PostgreSQL",
+    category: "backend",
+    level: 82,
+    icon: "Database",
+    experience: "2 tahun",
+    description:
+      "Perancangan skema, kueri relasional dan non-relasional, indexing, serta pemodelan data.",
+  },
+
   // Data
-  { name: "Pandas & Streamlit", category: "data", level: 80, icon: "BarChart3", experience: "1.5 tahun", description: "Data exploration, cleaning, interactive statistical dashboards & analytics", color: "#ff4b4b" },
+  {
+    name: "Pandas & Streamlit",
+    category: "data",
+    level: 80,
+    icon: "BarChart3",
+    experience: "1,5 tahun",
+    description:
+      "Eksplorasi dan pembersihan data, analisis statistik, serta dasbor interaktif.",
+  },
 
   // Tools
-  { name: "Git & Version Control", category: "tools", level: 90, icon: "GitBranch", experience: "3 tahun", description: "Git flow, collaborative workflows, CI/CD, and repository management", color: "#f05032" },
-  { name: "REST APIs & Architecture", category: "tools", level: 88, icon: "Cpu", experience: "3 tahun", description: "API integration, JWT/OAuth authentication, async processing & scalability", color: "#a855f7" },
+  {
+    name: "Git & Version Control",
+    category: "tools",
+    level: 90,
+    icon: "GitBranch",
+    experience: "3 tahun",
+    description:
+      "Git flow, alur kerja kolaboratif, CI/CD, dan pengelolaan repositori tim.",
+  },
+  {
+    name: "REST API & Arsitektur",
+    category: "tools",
+    level: 88,
+    icon: "Cpu",
+    experience: "3 tahun",
+    description:
+      "Integrasi API, autentikasi JWT/OAuth, pemrosesan asinkron, dan skalabilitas layanan.",
+  },
 ];
 
 export const TIMELINE: TimelineItem[] = [
   {
     year: "2026",
-    period: "2025 - Sekarang",
-    role: "Full-Stack Software Engineer & Final Year Student",
-    company: "Independent / Capstone Project",
-    location: "Pekanbaru, ID",
-    description: "Mengerjakan sistem inventaris canggih, penelitian skripsi software engineering, dan mengeksplorasi arsitektur web modern Next.js & Python.",
+    period: "2025 — Sekarang",
+    role: "Full-Stack Software Engineer & Mahasiswa Tingkat Akhir",
+    company: "Independen / Proyek Tugas Akhir",
+    location: "Pekanbaru, Indonesia",
+    description:
+      "Mengembangkan sistem inventaris, menjalankan penelitian tugas akhir di bidang rekayasa perangkat lunak, serta mendalami arsitektur web modern dengan Next.js dan Python.",
     achievements: [
-      "Mengembangkan Sales & Inventory Tracking System dengan Barcode Integration",
-      "Membuat dashboard analitik data berbasis Python & Streamlit",
-      "Mempersiapkan rilis portofolio interaktif berstandar industri"
+      "Mengembangkan Sales & Inventory Tracking System dengan integrasi barcode",
+      "Membangun dasbor analitik data berbasis Python dan Streamlit",
+      "Menyiapkan rilis portofolio profesional berstandar industri",
     ],
-    skills: ["Next.js", "React", "Python", "MongoDB", "TailwindCSS"],
-    type: "work"
+    skills: ["Next.js", "React", "Python", "MongoDB", "Tailwind CSS"],
+    type: "work",
   },
   {
     year: "2025",
-    period: "2024 - 2025",
-    role: "Mobile App Developer (Project Lead)",
-    company: "PLN Simpang 3 Project",
-    location: "Pekanbaru, ID",
-    description: "Merancang dan membangun aplikasi mobile manajemen arsip digital untuk staf operasional PLN Simpang 3.",
+    period: "2024 — 2025",
+    role: "Mobile App Developer (Ketua Proyek)",
+    company: "Proyek PLN Simpang 3",
+    location: "Pekanbaru, Indonesia",
+    description:
+      "Merancang dan membangun aplikasi mobile manajemen arsip digital untuk staf operasional PLN Simpang 3.",
     achievements: [
-      "Mendigitalkan alur persetujuan dokumen dokumen fisik menjadi terstruktur",
-      "Mengintegrasikan fitur kamera cerdas dengan watermark lokasi GPS & waktu",
-      "Meningkatkan kecepatan pencarian arsip hingga 70%"
+      "Mengubah alur persetujuan dokumen fisik menjadi proses digital terstruktur",
+      "Mengintegrasikan kamera dengan watermark lokasi GPS dan waktu otomatis",
+      "Meningkatkan kecepatan pencarian arsip hingga 70%",
     ],
     skills: ["React Native", "Expo", "FastAPI", "PostgreSQL", "Cloud Storage"],
-    type: "work"
+    type: "work",
   },
   {
     year: "2023",
-    period: "2022 - Sekarang",
-    role: "Teknik Informatika / Computer Science",
-    company: "University Studies",
+    period: "2022 — Sekarang",
+    role: "Teknik Informatika",
+    company: "Program Sarjana",
     location: "Indonesia",
-    description: "Fokus pada Rekayasa Perangkat Lunak, Struktur Data & Algoritma, Basis Data, dan Artificial Intelligence / Data Science.",
+    description:
+      "Berfokus pada rekayasa perangkat lunak, struktur data dan algoritma, sistem basis data, serta kecerdasan buatan dan sains data.",
     achievements: [
-      "Partisipan & kontributor project showcase software kampus",
-      "Menyelesaikan 10+ studi kasus perangkat lunak skala web & mobile",
-      "Aktif mengeksplorasi teknologi open-source terbaru"
+      "Kontributor pada showcase proyek perangkat lunak kampus",
+      "Menyelesaikan lebih dari 10 studi kasus perangkat lunak web dan mobile",
+      "Aktif mendalami teknologi open-source terkini",
     ],
-    skills: ["Algorithms", "Data Structures", "OOP", "Software Architecture"],
-    type: "education"
-  }
-];
-
-export const THEMES = [
-  {
-    id: "loki",
-    name: "Loki",
-    tag: "Asgardian Green Magic",
-    accent: "#4ade80",
-    accentGlow: "rgba(74, 222, 128, 0.45)",
-    secondary: "#d1fae5",
-    class: "theme-loki",
+    skills: ["Algoritma", "Struktur Data", "OOP", "Arsitektur Perangkat Lunak"],
+    type: "education",
   },
-  {
-    id: "miles",
-    name: "Emerald Echo",
-    tag: "Mystic Green / Dark Glass",
-    accent: "#4ade80",
-    accentGlow: "rgba(74, 222, 128, 0.45)",
-    secondary: "#d1fae5",
-    class: "theme-miles",
-  },
-  {
-    id: "peter",
-    name: "Forest Rune",
-    tag: "Ancient Green / Shadow Steel",
-    accent: "#22c55e",
-    accentGlow: "rgba(34, 197, 94, 0.42)",
-    secondary: "#a7f3d0",
-    class: "theme-peter",
-  },
-  {
-    id: "gwen",
-    name: "Verdant Veil",
-    tag: "Emerald Mist / Stone Glow",
-    accent: "#86efac",
-    accentGlow: "rgba(134, 239, 172, 0.45)",
-    secondary: "#dcfce7",
-    class: "theme-gwen",
-  },
-  {
-    id: "spidey2099",
-    name: "Jade Sigil",
-    tag: "Neo Forest / Soft Lime",
-    accent: "#bbf7d0",
-    accentGlow: "rgba(187, 247, 208, 0.45)",
-    secondary: "#ecfccb",
-    class: "theme-2099",
-  }
 ];

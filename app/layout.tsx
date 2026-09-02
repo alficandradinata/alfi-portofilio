@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alfi Candra Dinata | Software Engineer & Builder",
-  description: "Portofolio interaktif Alfi Candra Dinata — Full-Stack Web Architect, Mobile Developer.",
+  title: "Alfi Candra Dinata | Software Engineer",
+  description:
+    "Portofolio Alfi Candra Dinata — Full-Stack Software Engineer dari Pekanbaru. Pengembangan aplikasi web, mobile, dan sistem berbasis data.",
   keywords: [
     "Alfi Candra Dinata",
     "Alfi Candra",
@@ -23,12 +24,13 @@ export const metadata: Metadata = {
     "Next.js",
     "React Native",
     "Python",
-    "Portfolio",
+    "Portofolio",
   ],
   authors: [{ name: "Alfi Candra Dinata" }],
   openGraph: {
-    title: "Alfi Candra Dinata | Software Engineer & Builder",
-    description: "Portofolio interaktif Alfi Candra Dinata — Web, Mobile, & Data Solutions.",
+    title: "Alfi Candra Dinata | Software Engineer",
+    description:
+      "Portofolio Alfi Candra Dinata — pengembangan aplikasi web, mobile, dan solusi berbasis data.",
     type: "website",
   },
 };
@@ -41,9 +43,9 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans selection:bg-rose-500 selection:text-white">
+      <body className="min-h-full flex flex-col bg-surface text-ink-soft font-sans">
         {children}
       </body>
     </html>

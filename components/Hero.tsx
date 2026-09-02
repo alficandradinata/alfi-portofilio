@@ -1,245 +1,136 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
-import {
-  ArrowUpRight,
-  Code2,
-  Sparkles,
-  Mail,
-  FileText,
-  Layers,
-  Flame,
-  Zap,
-} from "lucide-react";
+import { ArrowUpRight, Mail, MapPin } from "lucide-react";
 import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/Icons";
-import confetti from "canvas-confetti";
 import { PERSONAL_INFO } from "@/data/portfolioData";
-import { sound } from "@/lib/soundEffects";
 import Terminal from "./Terminal";
 
-interface HeroProps {
-  soundActive: boolean;
-  onToggleSound: () => void;
-}
+const FOCUS_AREAS = [
+  "Arsitektur web full-stack",
+  "Aplikasi mobile React Native",
+  "Analitik data dengan Python",
+];
 
-export default function Hero({ soundActive, onToggleSound }: HeroProps) {
-  const roles = [
-    "Full-Stack Web Architect",
-    "React Native Mobile Engineer",
-    "Python & Data Science Explorer",
-    "Creative Tech Craftsman",
-  ];
-
-  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  // Typewriter effect
-  useEffect(() => {
-    const fullText = roles[currentRoleIndex];
-    let typingSpeed = isDeleting ? 40 : 80;
-
-    if (!isDeleting && displayText === fullText) {
-      typingSpeed = 2200; // Pause at end of text
-      const timeout = setTimeout(() => setIsDeleting(true), typingSpeed);
-      return () => clearTimeout(timeout);
-    } else if (isDeleting && displayText === "") {
-      setIsDeleting(false);
-      setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      setDisplayText(
-        isDeleting
-          ? fullText.substring(0, displayText.length - 1)
-          : fullText.substring(0, displayText.length + 1)
-      );
-    }, typingSpeed);
-
-    return () => clearTimeout(timer);
-  }, [displayText, isDeleting, currentRoleIndex]);
-
-  const triggerCelebrate = () => {
-    sound.playSuccess();
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ["#ff3366", "#00f0ff", "#fbbf24", "#3b82f6", "#ffffff"],
-    });
-  };
-
+export default function Hero() {
   return (
-    <section
-      id="top"
-      className="relative min-h-[90vh] pt-32 pb-20 flex flex-col justify-center overflow-hidden"
-    >
-      {/* Loki glow radial background */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/15 blur-[120px] rounded-full pointer-events-none -z-10" />
-      <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-lime-500/10 blur-[130px] rounded-full pointer-events-none -z-10" />
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Left Column: Hero Intro */}
-          <div className="lg:col-span-7 space-y-6 text-left">
-            
-            {/* Status Pill */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 backdrop-blur-md shadow-lg shadow-emerald-950/20">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-              </span>
-              <span className="text-xs font-mono text-slate-300 font-medium tracking-tight">
-                {PERSONAL_INFO.status}
-              </span>
-            </div>
-
-            {/* Main Headline */}
-            <div className="space-y-2">
-              <p className="text-xs font-mono text-emerald-400 font-bold uppercase tracking-[0.2em] flex items-center gap-2">
-                <span className="w-6 h-[2px] bg-emerald-500 inline-block" />
-                PORTFOLIO • ALFI CANDRA DINATA
-              </p>
-              
-              <h1 className="text-4xl sm:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.05]">
-                I Build Next-Gen <br />
-                <span className="bg-gradient-to-r from-emerald-400 via-green-300 to-lime-300 bg-clip-text text-transparent italic">
-                  Digital Worlds.
-                </span>
-              </h1>
-
-              {/* Animated Rotating Subtitle */}
-              <div className="h-8 flex items-center gap-2 font-mono text-sm sm:text-lg text-emerald-200">
-                <span className="text-emerald-400 font-bold">&gt;</span>
-                <span className="font-semibold">{displayText}</span>
-                <span className="w-2.5 h-5 bg-lime-300 animate-pulse inline-block" />
-              </div>
-            </div>
-
-            {/* Bio Paragraph */}
-            <p className="text-slate-300/90 text-sm sm:text-base leading-relaxed max-w-xl">
-              Halo! Saya <span className="text-white font-semibold">{PERSONAL_INFO.name}</span>. Software engineer dari Pekanbaru yang bersemangat menggabungkan arsitektur kode mutakhir, kecerdasan data, dan antarmuka web & mobile interaktif bergaya modern.
+    <section id="top" className="scroll-mt-24 pt-28 pb-16 sm:pt-32 sm:pb-20">
+      <div className="max-w-5xl mx-auto px-5 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Kolom kiri: perkenalan */}
+          <div className="lg:col-span-7">
+            <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-positive-line bg-positive-soft text-sm font-medium text-positive">
+              <span
+                className="w-2 h-2 rounded-full bg-positive shrink-0"
+                aria-hidden="true"
+              />
+              {PERSONAL_INFO.status}
             </p>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <h1 className="mt-6 text-4xl sm:text-5xl font-bold text-ink leading-tight">
+              {PERSONAL_INFO.name}
+            </h1>
+
+            <p className="mt-3 text-xl sm:text-2xl text-brand font-medium">
+              {PERSONAL_INFO.role}
+            </p>
+
+            <p className="mt-5 text-base sm:text-lg text-ink-soft leading-relaxed max-w-xl">
+              {PERSONAL_INFO.bio}
+            </p>
+
+            {/* Bidang fokus */}
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {FOCUS_AREAS.map((area) => (
+                <li
+                  key={area}
+                  className="px-3 py-1.5 rounded-lg border border-line bg-surface-subtle text-sm text-ink-soft"
+                >
+                  {area}
+                </li>
+              ))}
+            </ul>
+
+            {/* Tombol aksi */}
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#work"
-                onClick={triggerCelebrate}
-                onMouseEnter={() => sound.playHover()}
-                className="group relative inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 via-green-500 to-lime-500 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-emerald-600/30 hover:shadow-emerald-500/40 hover:scale-[1.03] active:scale-95 transition-all overflow-hidden"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-brand hover:bg-brand-strong text-white text-base font-semibold transition-colors"
               >
-                <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                <span className="relative flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-lime-200" />
-                  Lihat Karya Unggulan
-                </span>
-                <ArrowUpRight className="relative w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                Lihat proyek
+                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
               </a>
 
               <a
                 href="#contact"
-                onClick={() => sound.playClick()}
-                onMouseEnter={() => sound.playHover()}
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 text-slate-200 hover:text-white font-medium text-xs sm:text-sm border border-slate-700/80 hover:border-emerald-500/50 transition-all active:scale-95 shadow-md"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-line-strong bg-surface hover:bg-surface-sunken text-ink text-base font-semibold transition-colors"
               >
-                <Mail className="w-4 h-4 text-emerald-400" />
-                <span>Konsultasi Proyek</span>
-              </a>
-
-              <a
-                href={PERSONAL_INFO.socials.github}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => sound.playClick()}
-                onMouseEnter={() => sound.playHover()}
-                className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-slate-950/60 hover:bg-slate-900 text-slate-400 hover:text-slate-200 text-xs font-mono border border-slate-800 hover:border-emerald-500/40 transition-colors"
-                title="Buka Profil GitHub"
-              >
-                <GithubIcon className="w-4 h-4" />
-                <span>GitHub</span>
+                <Mail className="w-4 h-4 text-ink-muted" aria-hidden="true" />
+                Diskusikan proyek
               </a>
             </div>
 
-            {/* Social Links & Quick Contact */}
-            <div className="flex items-center gap-3 pt-4 border-t border-slate-800/80">
-              <span className="text-xs font-mono text-slate-400">Socials:</span>
+            {/* Tautan profil dan lokasi */}
+            <div className="mt-8 pt-6 border-t border-line flex flex-wrap items-center gap-x-5 gap-y-3">
               <div className="flex items-center gap-2">
                 <a
                   href={PERSONAL_INFO.socials.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-400 border border-slate-800 hover:border-emerald-500/40 transition-colors"
-                  aria-label="GitHub"
+                  className="p-2 rounded-lg border border-line text-ink-muted hover:text-brand hover:border-brand-line hover:bg-brand-soft transition-colors"
+                  aria-label="Profil GitHub"
                 >
-                  <GithubIcon className="w-4 h-4" />
+                  <GithubIcon className="w-5 h-5" />
                 </a>
                 <a
                   href={PERSONAL_INFO.socials.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-green-500/20 text-slate-400 hover:text-green-400 border border-slate-800 hover:border-green-500/40 transition-colors"
-                  aria-label="LinkedIn"
+                  className="p-2 rounded-lg border border-line text-ink-muted hover:text-brand hover:border-brand-line hover:bg-brand-soft transition-colors"
+                  aria-label="Profil LinkedIn"
                 >
-                  <LinkedinIcon className="w-4 h-4" />
+                  <LinkedinIcon className="w-5 h-5" />
                 </a>
                 <a
                   href={PERSONAL_INFO.socials.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-lime-500/20 text-slate-400 hover:text-lime-400 border border-slate-800 hover:border-lime-500/40 transition-colors"
-                  aria-label="Instagram"
+                  className="p-2 rounded-lg border border-line text-ink-muted hover:text-brand hover:border-brand-line hover:bg-brand-soft transition-colors"
+                  aria-label="Profil Instagram"
                 >
-                  <InstagramIcon className="w-4 h-4" />
+                  <InstagramIcon className="w-5 h-5" />
                 </a>
                 <a
                   href={`mailto:${PERSONAL_INFO.email}`}
-                  className="p-2 rounded-lg bg-slate-900/80 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-300 border border-slate-800 hover:border-emerald-500/40 transition-colors"
-                  aria-label="Email"
+                  className="p-2 rounded-lg border border-line text-ink-muted hover:text-brand hover:border-brand-line hover:bg-brand-soft transition-colors"
+                  aria-label="Kirim email"
                 >
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-5 h-5" />
                 </a>
               </div>
 
-              <span className="text-slate-600 text-xs">|</span>
-              <span className="text-xs font-mono text-slate-400 hidden sm:inline-block">
-                📍 {PERSONAL_INFO.location}
-              </span>
-            </div>
-
-          </div>
-
-          {/* Right Column: Interactive Spidey Terminal */}
-          <div className="lg:col-span-5 w-full flex justify-center">
-            <Terminal soundActive={soundActive} onToggleSound={onToggleSound} />
-          </div>
-
-        </div>
-
-        {/* Hero Bottom Stats Matrix */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16 pt-8 border-t border-slate-800/80">
-          {PERSONAL_INFO.stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="p-4 rounded-2xl bg-slate-900/40 border border-white/5 backdrop-blur-sm hover:border-rose-500/30 transition-all group"
-            >
-              <div className="flex items-baseline gap-1">
-                <span className="text-2xl sm:text-3xl font-black text-white group-hover:text-rose-400 transition-colors">
-                  {stat.value}
-                </span>
-                {stat.suffix && (
-                  <span className="text-xs font-mono text-slate-500">{stat.suffix}</span>
-                )}
-              </div>
-              <p className="text-xs font-mono text-slate-400 mt-1 uppercase tracking-wider">
-                {stat.label}
+              <p className="flex items-center gap-1.5 text-sm text-ink-muted">
+                <MapPin className="w-4 h-4 shrink-0" aria-hidden="true" />
+                {PERSONAL_INFO.location}
               </p>
             </div>
-          ))}
+          </div>
+
+          {/* Kolom kanan: terminal interaktif */}
+          <div className="lg:col-span-5 w-full">
+            <Terminal />
+          </div>
         </div>
 
+        {/* Ringkasan angka */}
+        <dl className="mt-16 pt-10 border-t border-line grid grid-cols-2 sm:grid-cols-4 gap-6">
+          {PERSONAL_INFO.stats.map((stat) => (
+            <div key={stat.label}>
+              <dt className="text-sm text-ink-muted">{stat.label}</dt>
+              <dd className="mt-1 text-3xl font-bold text-ink">
+                {stat.value}
+                {stat.suffix}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

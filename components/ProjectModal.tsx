@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { X, ExternalLink, Sparkles, CheckCircle2, Layers, Calendar, BarChart2 } from "lucide-react";
+import React, { useEffect, useRef } from "react";
+import { X, Check, ExternalLink } from "lucide-react";
 import { GithubIcon } from "@/components/Icons";
-import confetti from "canvas-confetti";
-import { Project } from "@/data/portfolioData";
-import { sound } from "@/lib/soundEffects";
+import { Project, CATEGORY_LABELS } from "@/data/portfolioData";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -13,175 +11,162 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
   useEffect(() => {
+    if (!project) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    if (project) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    closeButtonRef.current?.focus();
+
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [project, onClose]);
 
   if (!project) return null;
 
-  const triggerConfetti = () => {
-    sound.playSuccess();
-    confetti({
-      particleCount: 70,
-      spread: 60,
-      origin: { y: 0.5 },
-      colors: ["#ff3366", "#00f0ff", "#fbbf24"],
-    });
-  };
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
-      {/* Backdrop */}
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-4 sm:p-6 overflow-y-auto">
+      {/* Latar belakang */}
       <div
-        className="fixed inset-0 bg-slate-950/85 backdrop-blur-xl transition-opacity"
-        onClick={() => {
-          sound.playClick();
-          onClose();
-        }}
+        className="fixed inset-0 bg-ink/40 backdrop-blur-sm"
+        onClick={onClose}
+        aria-hidden="true"
       />
 
-      {/* Modal Dialog Card */}
-      <div className="relative w-full max-w-3xl rounded-3xl bg-slate-950 border border-slate-700/80 shadow-2xl shadow-rose-950/40 p-6 sm:p-8 z-10 overflow-hidden my-8">
-        
-        {/* Top Glow Accent Bar */}
-        <div
-          className={`absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r ${project.colorScheme.gradient}`}
-        />
-
-        {/* Close Button */}
-        <button
-          onClick={() => {
-            sound.playClick();
-            onClose();
-          }}
-          className="absolute top-5 right-5 p-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700/80 transition-all hover:scale-105 cursor-pointer"
-          aria-label="Close modal"
-        >
-          <X className="w-5 h-5" />
-        </button>
-
-        {/* Modal Header */}
-        <div className="space-y-3 pr-10">
-          <div className="flex flex-wrap items-center gap-2">
-            <span
-              className={`px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider border ${project.colorScheme.badge}`}
-            >
-              {project.category.toUpperCase()} • {project.year}
-            </span>
-            {project.metrics && (
-              <span className="px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
-                <BarChart2 className="w-3.5 h-3.5" />
-                {project.metrics}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-modal-title"
+        className="relative z-10 w-full max-w-2xl my-8 rounded-xl bg-surface border border-line shadow-xl"
+      >
+        {/* Kepala */}
+        <div className="flex items-start justify-between gap-4 p-6 border-b border-line">
+          <div>
+            <p className="flex flex-wrap items-center gap-2 text-sm">
+              <span className="px-2.5 py-1 rounded-md bg-brand-soft border border-brand-line text-brand font-medium">
+                {CATEGORY_LABELS[project.category]}
               </span>
-            )}
-          </div>
-
-          <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-            {project.title}
-          </h3>
-
-          <p className="text-sm font-mono text-cyan-300">
-            {project.tagline}
-          </p>
-        </div>
-
-        {/* Modal Body */}
-        <div className="mt-6 space-y-6 text-sm text-slate-300 leading-relaxed border-t border-slate-800/80 pt-6">
-          
-          <div>
-            <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">
-              Deskripsi Proyek & Solusi
-            </h4>
-            <p className="text-slate-300 text-sm leading-relaxed">
-              {project.longDescription}
+              <span className="text-ink-muted">{project.year}</span>
             </p>
-          </div>
 
-          {/* Key Highlights / Features */}
-          <div>
-            <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-3 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-rose-400" />
-              Fitur Utama & Keunggulan
-            </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {project.highlights.map((highlight, idx) => (
-                <div
-                  key={idx}
-                  className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-start gap-2.5"
-                >
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="text-xs text-slate-200">{highlight}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Tech Stack Pills */}
-          <div>
-            <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-2.5 flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-cyan-400" />
-              Teknologi Yang Digunakan
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-slate-900 text-slate-200 border border-slate-800"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-
-        </div>
-
-        {/* Modal Footer / Action CTA */}
-        <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => sound.playClick()}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-mono font-bold border border-slate-700 hover:border-slate-500 transition-colors cursor-pointer"
-              >
-                <GithubIcon className="w-4 h-4" />
-                <span>Source Code</span>
-              </a>
-            )}
-
-            <button
-              onClick={triggerConfetti}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 text-xs font-mono font-bold border border-rose-500/30 transition-colors cursor-pointer"
+            <h3
+              id="project-modal-title"
+              className="mt-3 text-2xl font-bold text-ink"
             >
-              <Sparkles className="w-4 h-4 text-rose-400" />
-              <span>Apresiasi Proyek 🎉</span>
-            </button>
+              {project.title}
+            </h3>
+
+            <p className="mt-2 text-base text-ink-soft">{project.tagline}</p>
           </div>
 
           <button
-            onClick={() => {
-              sound.playClick();
-              onClose();
-            }}
-            className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider transition-colors ml-auto cursor-pointer"
+            ref={closeButtonRef}
+            type="button"
+            onClick={onClose}
+            aria-label="Tutup detail proyek"
+            className="p-2 rounded-lg border border-line text-ink-muted hover:text-ink hover:bg-surface-sunken transition-colors shrink-0"
+          >
+            <X className="w-5 h-5" aria-hidden="true" />
+          </button>
+        </div>
+
+        {/* Isi */}
+        <div className="p-6 space-y-6">
+          {project.metrics && (
+            <p className="inline-block px-3 py-1.5 rounded-lg bg-positive-soft border border-positive-line text-sm font-medium text-positive">
+              {project.metrics}
+            </p>
+          )}
+
+          <section>
+            <h4 className="text-sm font-semibold text-ink-muted uppercase tracking-wide">
+              Ringkasan
+            </h4>
+            <p className="mt-2 text-base text-ink-soft leading-relaxed">
+              {project.longDescription}
+            </p>
+          </section>
+
+          <section>
+            <h4 className="text-sm font-semibold text-ink-muted uppercase tracking-wide">
+              Fitur utama
+            </h4>
+            <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {project.highlights.map((highlight) => (
+                <li
+                  key={highlight}
+                  className="flex items-start gap-2.5 p-3 rounded-lg bg-surface-subtle border border-line"
+                >
+                  <Check
+                    className="w-4 h-4 text-positive shrink-0 mt-1"
+                    aria-hidden="true"
+                  />
+                  <span className="text-sm text-ink-soft">{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section>
+            <h4 className="text-sm font-semibold text-ink-muted uppercase tracking-wide">
+              Teknologi
+            </h4>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="px-3 py-1.5 rounded-md text-sm font-medium bg-surface-sunken text-ink-soft"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+
+        {/* Kaki */}
+        <div className="p-6 border-t border-line flex flex-wrap items-center gap-3">
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-line-strong bg-surface hover:bg-surface-sunken text-ink text-sm font-semibold transition-colors"
+            >
+              <GithubIcon className="w-4 h-4" />
+              Kode sumber
+            </a>
+          )}
+
+          {project.demoUrl && (
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-brand hover:bg-brand-strong text-white text-sm font-semibold transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" aria-hidden="true" />
+              Lihat demo
+            </a>
+          )}
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="ml-auto px-4 py-2.5 rounded-lg text-sm font-semibold text-ink-soft hover:bg-surface-sunken transition-colors"
           >
             Tutup
           </button>
         </div>
-
       </div>
     </div>
   );
