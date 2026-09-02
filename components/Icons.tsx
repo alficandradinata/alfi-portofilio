@@ -1,4 +1,19 @@
-import React from "react";
+/**
+ * Warna resmi tiap platform.
+ *
+ * `color` dipakai untuk ikon, `soft` untuk latar saat kursor di atasnya.
+ * Hijau WhatsApp resmi (#25D366) hanya mencapai kontras 2:1 di atas latar
+ * putih, di bawah ambang 3:1 WCAG 1.4.11 untuk elemen grafis, jadi dipakai
+ * varian yang sedikit lebih gelap. Tiga lainnya memakai warna resmi apa adanya.
+ */
+export const SOCIAL_BRANDS = {
+  github: { color: "#181717", soft: "#f3f4f6" }, // 18,3:1
+  linkedin: { color: "#0a66c2", soft: "#e8f1fa" }, // 5,7:1
+  instagram: { color: "#e4405f", soft: "#fdecef" }, // 4,0:1
+  whatsapp: { color: "#1da851", soft: "#e7f6ed" }, // 3,1:1
+} as const;
+
+export type SocialBrand = keyof typeof SOCIAL_BRANDS;
 
 export function GithubIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (

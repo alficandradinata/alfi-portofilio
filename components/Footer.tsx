@@ -1,14 +1,38 @@
+import type { CSSProperties } from "react";
 import { Mail } from "lucide-react";
-import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/Icons";
+import {
+  GithubIcon,
+  LinkedinIcon,
+  InstagramIcon,
+  WhatsappIcon,
+  SOCIAL_BRANDS,
+} from "@/components/Icons";
 import { PERSONAL_INFO } from "@/data/portfolioData";
 
 const SOCIALS = [
-  { label: "GitHub", href: PERSONAL_INFO.socials.github, Icon: GithubIcon },
-  { label: "LinkedIn", href: PERSONAL_INFO.socials.linkedin, Icon: LinkedinIcon },
+  {
+    label: "GitHub",
+    href: PERSONAL_INFO.socials.github,
+    Icon: GithubIcon,
+    brand: SOCIAL_BRANDS.github,
+  },
+  {
+    label: "LinkedIn",
+    href: PERSONAL_INFO.socials.linkedin,
+    Icon: LinkedinIcon,
+    brand: SOCIAL_BRANDS.linkedin,
+  },
   {
     label: "Instagram",
     href: PERSONAL_INFO.socials.instagram,
     Icon: InstagramIcon,
+    brand: SOCIAL_BRANDS.instagram,
+  },
+  {
+    label: "WhatsApp",
+    href: PERSONAL_INFO.socials.whatsapp,
+    Icon: WhatsappIcon,
+    brand: SOCIAL_BRANDS.whatsapp,
   },
 ];
 
@@ -32,14 +56,20 @@ export default function Footer() {
 
           {/* Tautan profil */}
           <ul className="flex items-center gap-2">
-            {SOCIALS.map(({ label, href, Icon }) => (
+            {SOCIALS.map(({ label, href, Icon, brand }) => (
               <li key={label}>
                 <a
                   href={href}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex p-2 rounded-lg border border-line bg-surface text-ink-muted hover:text-brand hover:border-brand-line transition-colors"
-                  aria-label={`Profil ${label}`}
+                  aria-label={`${label} — buka di tab baru`}
+                  style={
+                    {
+                      "--social": brand.color,
+                      "--social-soft": brand.soft,
+                    } as CSSProperties
+                  }
+                  className="flex p-2 rounded-lg border border-line bg-surface text-[var(--social)] hover:border-[var(--social)] hover:bg-[var(--social-soft)] transition-colors"
                 >
                   <Icon className="w-5 h-5" />
                 </a>

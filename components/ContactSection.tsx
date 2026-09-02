@@ -1,13 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import type { CSSProperties } from "react";
 import { Mail, Send, Copy, Check, ArrowUpRight } from "lucide-react";
-import {
-  GithubIcon,
-  LinkedinIcon,
-  InstagramIcon,
-  WhatsappIcon,
-} from "@/components/Icons";
+import { WhatsappIcon, LinkedinIcon, SOCIAL_BRANDS } from "@/components/Icons";
 import { PERSONAL_INFO } from "@/data/portfolioData";
 
 const CATEGORIES = [
@@ -18,22 +14,25 @@ const CATEGORIES = [
   "Lainnya",
 ];
 
-const CHANNELS = [
+/**
+ * Saluran percakapan langsung. GitHub dan Instagram sengaja tidak ada di
+ * sini — keduanya untuk menelusuri karya, bukan menghubungi, dan sudah
+ * tersedia di footer.
+ */
+const DIRECT_CHANNELS = [
   {
     label: "WhatsApp",
+    description: "Balas cepat lewat WhatsApp",
     href: PERSONAL_INFO.socials.whatsapp,
     Icon: WhatsappIcon,
+    brand: SOCIAL_BRANDS.whatsapp,
   },
   {
     label: "LinkedIn",
+    description: "Kirim pesan lewat LinkedIn",
     href: PERSONAL_INFO.socials.linkedin,
     Icon: LinkedinIcon,
-  },
-  { label: "GitHub", href: PERSONAL_INFO.socials.github, Icon: GithubIcon },
-  {
-    label: "Instagram",
-    href: PERSONAL_INFO.socials.instagram,
-    Icon: InstagramIcon,
+    brand: SOCIAL_BRANDS.linkedin,
   },
 ];
 
@@ -103,7 +102,7 @@ export default function ContactSection() {
           <div className="lg:col-span-5 space-y-6">
             <div className="p-6 rounded-xl border border-line bg-surface">
               <p className="text-sm font-semibold text-ink-muted uppercase tracking-wide">
-                Email langsung
+                Hubungi langsung
               </p>
 
               <div className="mt-3 flex items-center justify-between gap-3 p-3 rounded-lg border border-line bg-surface-subtle">
@@ -131,33 +130,36 @@ export default function ContactSection() {
                   {copied ? "Tersalin" : "Salin"}
                 </button>
               </div>
-            </div>
 
-            <div className="p-6 rounded-xl border border-line bg-surface">
-              <p className="text-sm font-semibold text-ink-muted uppercase tracking-wide">
-                Saluran lain
-              </p>
-
-              <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {CHANNELS.map(({ label, href, Icon }) => (
-                  <li key={label}>
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="group flex items-center justify-between gap-2 p-3 rounded-lg border border-line bg-surface-subtle hover:border-brand-line hover:bg-brand-soft transition-colors"
-                    >
-                      <span className="flex items-center gap-2 text-sm font-medium text-ink-soft group-hover:text-brand">
-                        <Icon className="w-4 h-4 shrink-0" />
-                        {label}
-                      </span>
-                      <ArrowUpRight
-                        className="w-4 h-4 text-ink-muted group-hover:text-brand shrink-0"
-                        aria-hidden="true"
-                      />
-                    </a>
-                  </li>
-                ))}
+              <ul className="mt-2.5 space-y-2.5">
+                {DIRECT_CHANNELS.map(
+                  ({ label, description, href, Icon, brand }) => (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${label} — buka di tab baru`}
+                        style={
+                          {
+                            "--social": brand.color,
+                            "--social-soft": brand.soft,
+                          } as CSSProperties
+                        }
+                        className="group flex items-center justify-between gap-2 p-3 rounded-lg border border-line bg-surface-subtle hover:border-[var(--social)] hover:bg-[var(--social-soft)] transition-colors"
+                      >
+                        <span className="flex items-center gap-2 text-sm font-medium text-ink-soft">
+                          <Icon className="w-4 h-4 shrink-0 text-[var(--social)]" />
+                          {description}
+                        </span>
+                        <ArrowUpRight
+                          className="w-4 h-4 text-ink-muted group-hover:text-[var(--social)] shrink-0"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
 

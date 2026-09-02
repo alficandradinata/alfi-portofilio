@@ -1,5 +1,6 @@
+import type { CSSProperties } from "react";
 import { ArrowUpRight, Mail, MapPin } from "lucide-react";
-import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/Icons";
+import { GithubIcon, SOCIAL_BRANDS } from "@/components/Icons";
 import { PERSONAL_INFO } from "@/data/portfolioData";
 import Terminal from "./Terminal";
 
@@ -69,42 +70,23 @@ export default function Hero() {
 
             {/* Tautan profil dan lokasi */}
             <div className="mt-8 pt-6 border-t border-line flex flex-wrap items-center gap-x-5 gap-y-3">
-              <div className="flex items-center gap-2">
-                <a
-                  href={PERSONAL_INFO.socials.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-2 rounded-lg border border-line text-ink-muted hover:text-brand hover:border-brand-line hover:bg-brand-soft transition-colors"
-                  aria-label="Profil GitHub"
-                >
-                  <GithubIcon className="w-5 h-5" />
-                </a>
-                <a
-                  href={PERSONAL_INFO.socials.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-2 rounded-lg border border-line text-ink-muted hover:text-brand hover:border-brand-line hover:bg-brand-soft transition-colors"
-                  aria-label="Profil LinkedIn"
-                >
-                  <LinkedinIcon className="w-5 h-5" />
-                </a>
-                <a
-                  href={PERSONAL_INFO.socials.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-2 rounded-lg border border-line text-ink-muted hover:text-brand hover:border-brand-line hover:bg-brand-soft transition-colors"
-                  aria-label="Profil Instagram"
-                >
-                  <InstagramIcon className="w-5 h-5" />
-                </a>
-                <a
-                  href={`mailto:${PERSONAL_INFO.email}`}
-                  className="p-2 rounded-lg border border-line text-ink-muted hover:text-brand hover:border-brand-line hover:bg-brand-soft transition-colors"
-                  aria-label="Kirim email"
-                >
-                  <Mail className="w-5 h-5" />
-                </a>
-              </div>
+              {/* Hanya GitHub di sini — kode adalah bukti kerja, dan tautan
+                  sosial selengkapnya tersedia di footer. */}
+              <a
+                href={PERSONAL_INFO.socials.github}
+                target="_blank"
+                rel="noreferrer"
+                style={
+                  {
+                    "--social": SOCIAL_BRANDS.github.color,
+                    "--social-soft": SOCIAL_BRANDS.github.soft,
+                  } as CSSProperties
+                }
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-line text-sm font-medium text-[var(--social)] hover:border-[var(--social)] hover:bg-[var(--social-soft)] transition-colors"
+              >
+                <GithubIcon className="w-4 h-4" />
+                GitHub
+              </a>
 
               <p className="flex items-center gap-1.5 text-sm text-ink-muted">
                 <MapPin className="w-4 h-4 shrink-0" aria-hidden="true" />
